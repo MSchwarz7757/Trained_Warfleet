@@ -12,15 +12,15 @@ def main():
     # get the initial state of the environment
     state = env.reset()
     while not done:
-        action, n_free_pos = env.sample()
+        action = env.sample()
         next_state, reward, done, info = env.step(action)
-        episode_reward += reward
-        state = next_state
-        n_steps += 1
-    print(state)
-    print(
-        "episode_reward:", episode_reward,
-        "\tn_steps:", n_steps)
+        #episode_reward += reward
+        #state = next_state
+        #n_steps += 1
+    #print(state)
+    #print(
+        #"episode_reward:", episode_reward,
+        #"\tn_steps:", n_steps)
 
 
 if __name__ == "__main__":

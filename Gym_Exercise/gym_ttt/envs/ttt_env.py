@@ -2,6 +2,7 @@ import gym
 from gym import spaces
 import numpy as np
 import random as random
+from .Spielfeld import Board
 
 
 class CustomEnv(gym.Env):
@@ -15,11 +16,36 @@ class CustomEnv(gym.Env):
             [3, 3, 3],
             [3, 3, 3]])
 
-        # board as state representation
-        self.board = np.zeros((3, 3), dtype=np.int32)
-        self.cross = 1
-        self.circle = -1
-        self.free = 0
+        self.board = Board(10)
+        self.free = " "
+        self.ship = "x"
+        self.hit = "O"
+
+        # zeichne das Spielfeld am Anfang leer
+        self.board.draw_board()
+        start = True
+        numb_of_ships = 0
+
+        # Spielfeld aufbauen
+        while start:
+            # frage den Spieler/Agenten nach den positionen
+            self.board.place_agent_ship()
+            numb_of_ships += 1
+
+            # platziere die Schiffe zufällig -> sollte später durch schiffsklasse ersetzt werden
+            r_pos_start = np.random.randint(0, 9)
+            r_pos_end = np.random.randint(0, 9)
+            r_orientation = np.random.randint(0, 2)
+            r_row = np.random.randint(0, 9)
+
+            self.board.place_enemy_ship(r_orientation, r_pos_start, r_pos_end, r_row)
+            self.board.draw_board()
+
+            # wenn alle Schiffe platziert wurden
+            if numb_of_ships is 1:
+                print("Alle Schiffe wurden platziert")
+                start = False
+
 
     def reset(self):
         """
@@ -27,7 +53,7 @@ class CustomEnv(gym.Env):
         return:
             board as state of the environment
         """
-        self.board[:, :] = 0
+        #self.board.reset_board(10)
         return self.board
 
     def check_winner(self):
@@ -43,14 +69,15 @@ class CustomEnv(gym.Env):
 
     def sample(self):
         """
-        Select a random free position of the board.
+        Select a random position an try to hit the agent ships
         return:
-            Random free board position as array and number of free
-            positions
+            position which should be attacked
         """
-        board_pos = np.array([random.randrange(3), random.randrange(3)])
-        n_free_pos = 0
-        return board_pos, n_free_pos
+        r_shot_X = np.random.randint(0, 9)
+        r_shot_Y = np.random.randint(0, 9)
+
+        shot = [r_shot_X, r_shot_Y]
+        return shot
 
     def opponent_move(self):
         """
@@ -59,7 +86,10 @@ class CustomEnv(gym.Env):
             True, if board is completely filled.
             False, otherwise.
         """
-        return False
+        x = int(input("Schuss X Koordinate: "))
+        y = int(input("Schuss Y Koordinate: "))
+        shot = [x,y]
+        return shot
 
     def compute_reward(self, winner):
         """
@@ -70,9 +100,9 @@ class CustomEnv(gym.Env):
             over.
             Done, if winner is != self.free
         """
-        reward = 0
+        """reward = 0
         done = False
-        return reward, done
+        return reward, done"""
 
     def apply_action(self, action):
         """
@@ -92,30 +122,36 @@ class CustomEnv(gym.Env):
         return:
             state (board), reward, done, info
         """
+        # check if action is valid board position
         reward = 0
         done = False
-        # check if action is valid board position
-        invalid_idxs = np.argwhere((action > 2) | (action < 0))
-        if invalid_idxs.shape[0] > 0:
+        count_shots = 0
+
+        if action[0] > 9 or action[0] < 0:
             # do not change board
-            return self.board, reward, done, {}
-        # check if valid board position is already set
-        if self.board[action[0], action[1]] != self.free:
+           return self.board, reward, done, {}
+
+        # Agent soll schießen
+        shot = self.opponent_move()
+
+        # platziere denn Schuss auf dem Spielfeld und zeichne neu
+        self.board.place_hit(action[0], action[1], self.board.agent_board)
+        self.board.place_hit(shot[0], shot[1], self.board.enemy_board)
+        self.board.draw_board()
+        count_shots += 1
+
+        # in der if abfrage ist noch ein fehler drinn !
+        if self.board.enemy_board[shot[0]][shot[1]] is self.hit:
             # do not change board
-            return self.board, reward, done, {}
-        # apply cross to board
-        self.board[action[0], action[1]] = self.cross
-        # can a winner be determined?
-        winner_symbol = self.check_winner()
-        reward, done = self.compute_reward(winner_symbol)
-        if done:
-            return self.board, reward, done, {}
-        # apply opponent move and check if a winner can be determind
-        filled = self.opponent_move()
-        winner_symbol = self.check_winner()
-        reward, done = self.compute_reward(winner_symbol)
-        # if we got a winner or if board is full -> game over
-        done = done or filled
+            print("Hier war schon ein schuss")
+            # return self.board, reward, done, {}
+
+        if self.board.agent_board[action[0]][action[1]] is self.ship:
+            print("Eins deiner Schiffe wurde getroffen")
+
+        if self.board.enemy_board[shot[0]][shot[1]] is self.ship:
+            print("Du hast ein Schiff getroffen")
+
         return self.board, reward, done, {}
 
     # board wird gezeichnet
