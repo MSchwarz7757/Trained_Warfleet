@@ -32,7 +32,16 @@ class Board:
             cprint('\x1b[3;30;44m'+string, 'white', 'on_blue')
             x += 1
 
-    def place_enemy_ship(self, orientation, start, end, column):
+    # hier soll überprüft werden das die schiffe nicht übereinander liegen
+    def check_double_position(self):
+        pass
+
+    def place_enemy_ship(self, ship):
+
+        start = ship.pos_x
+        end = ship.pos_y
+        orientation = ship.orientation
+        column = ship.row
 
         # tauschen der zahlen bei falscher eingabe
         if start >= end:

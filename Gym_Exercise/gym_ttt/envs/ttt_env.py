@@ -3,6 +3,7 @@ from gym import spaces
 import numpy as np
 import random as random
 from .Spielfeld import Board
+from .Warships import Warships
 
 
 class CustomEnv(gym.Env):
@@ -21,16 +22,18 @@ class CustomEnv(gym.Env):
         self.ship = "x"
         self.hit = "O"
 
+        self.shiplist_enemy = [9]
+        self.shiplist_agent = [9]
+
         # zeichne das Spielfeld am Anfang leer
         self.board.draw_board()
         start = True
-        numb_of_ships = 0
+        num_ship = 0
 
         # Spielfeld aufbauen
         while start:
             # frage den Spieler/Agenten nach den positionen
             self.board.place_agent_ship()
-            numb_of_ships += 1
 
             # platziere die Schiffe zufällig -> sollte später durch schiffsklasse ersetzt werden
             r_pos_start = np.random.randint(0, 9)
@@ -38,11 +41,13 @@ class CustomEnv(gym.Env):
             r_orientation = np.random.randint(0, 2)
             r_row = np.random.randint(0, 9)
 
-            self.board.place_enemy_ship(r_orientation, r_pos_start, r_pos_end, r_row)
+            self.shiplist_enemy.insert(num_ship, Warships(r_pos_start, r_pos_end, r_orientation,r_row))
+            self.board.place_enemy_ship(self.shiplist_enemy[num_ship])
             self.board.draw_board()
 
+            num_ship += 1
             # wenn alle Schiffe platziert wurden
-            if numb_of_ships is 1:
+            if num_ship is 3:
                 print("Alle Schiffe wurden platziert")
                 start = False
 
