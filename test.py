@@ -1,4 +1,4 @@
-from Gym_Exercise.gym_ttt.envs.Warships import Warships
+from Gym_Exercise.gym_wf.envs.Warships import Warships
 
 
 submarine_1 = Warships(1, 1, 1, 2)

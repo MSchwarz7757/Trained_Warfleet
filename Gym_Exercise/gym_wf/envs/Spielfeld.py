@@ -1,6 +1,7 @@
 from random import randint
 from termcolor import cprint
 
+
 class Board:
     def __init__(self, board_size):
         self.board_size = board_size
@@ -38,8 +39,8 @@ class Board:
 
     def place_enemy_ship(self, ship):
 
-        start = ship.pos_x
-        end = ship.pos_y
+        start = ship.pos_bow
+        end = ship.pos_stern
         orientation = ship.orientation
         column = ship.row
 
@@ -57,7 +58,7 @@ class Board:
             for row in range(start, end + 1):
                 self.enemy_board[row][column] = "x"
 
-    def place_agent_ship(self):
+    def place_agent_ship(self, size):
         orientation = int(input("Waagrecht(0) oder Senkrecht(1)? : "))
         # minus 1 weil der array immer bei 0 anfängt
         column = int(input("Welche Reihe/Spalte: "))
@@ -80,15 +81,23 @@ class Board:
             for row in range(start, end + 1):
                 self.agent_board[row][column] = "x"
 
+        return start, end , orientation, column, size
+
+    def empty_space(self, x, y, selected_board):
+        if selected_board[y][x] == " ":
+            return True
+        else:
+            return False
+
+    def hit(self, x, y, selected_board):
+        if selected_board[y][x] == "O":
+            return True
+        else:
+            return False
+
     def place_hit(self, x, y, selected_board):
-        selected_board[y][x] = "O"
-
-    def check_sunken_ships(self, shiplist):
-        if shiplist is []:
-            pass
-
-    def check_hit(self, action_space):
-        pass
+        if not self.hit(x, y, selected_board):
+            selected_board[y][x] = "O"
 
     def get_enemy_board(self):
         return self.enemy_board

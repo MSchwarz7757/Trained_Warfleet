@@ -1,10 +1,10 @@
 import gym
-import gym_ttt
+import gym_wf
 import numpy as np
 
 
 def main():
-    env = gym.make("TTT-v0")
+    env = gym.make("WARFLEET-v0")
     done = False
     # reward of the whole episode
     episode_reward = 0
