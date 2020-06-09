@@ -42,7 +42,7 @@ class Board:
         start = ship.pos_bow
         end = ship.pos_stern
         orientation = ship.orientation
-        column = ship.row
+        column = ship.row_or_col
 
         # tauschen der zahlen bei falscher eingabe
         if start >= end:
@@ -63,28 +63,36 @@ class Board:
         # minus 1 weil der array immer bei 0 anfängt
         column = int(input("Welche Reihe/Spalte: "))
         start = int(input("Anfang Shiff: "))
-        end = int(input("Ende Shiff: "))
+        #end = int(input("Ende Shiff: "))
 
         # tauschen der zahlen bei falscher eingabe
-        if start >= end:
+        '''if start >= end:
             temp = end
             end = start
-            start = temp
+            start = temp'''
 
-        #waagrecht
+        #waagerecht
         if orientation == 0:
-            for row in range(start, end + 1):
-                self.agent_board[column][row] = "x"
+            if self.empty_space(start, column, self.agent_board):
+                for row in range(start, start + size):
+                    self.agent_board[column][row] = "x"
+            else:
+                print("ups")
 
         #senkrecht
         if orientation == 1:
-            for row in range(start, end + 1):
-                self.agent_board[row][column] = "x"
+            if self.empty_space(column, start, self.agent_board):
+                for row in range(start, start + size):
+                    self.agent_board[row][column] = "x"
+            else:
+                print("ups")
 
-        return start, end , orientation, column, size
+        return start, start + size, orientation, column, size
 
     def empty_space(self, x, y, selected_board):
-        if selected_board[y][x] == " ":
+        print("----")
+        print(selected_board[x][y] == " ")
+        if selected_board[x][y] == " ":
             return True
         else:
             return False

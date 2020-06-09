@@ -5,7 +5,7 @@ class Warships:
         self.pos_bow = pos_bow
         self.pos_stern = pos_stern
         self.orientation = orientation
-        self.row = row_or_col
+        self.row_or_col = row_or_col
         self.size = size
 
     def submarine(self, ship):

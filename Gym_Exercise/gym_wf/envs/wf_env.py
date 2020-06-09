@@ -34,7 +34,7 @@ class CustomEnv(gym.Env):
         while start:
             self.place_ships()
             # wenn alle Schiffe platziert wurden
-            if self.num_ship is 21:
+            if self.num_ship == 3:
                 print("Alle Schiffe wurden platziert")
                 start = False
 
@@ -94,32 +94,47 @@ class CustomEnv(gym.Env):
         #self.board.reset_board(10)
         return self.board
 
-    def check_hit(self, player, row, col):
+    def check_hit(self, player, col, row):
         #Zug Agent
         if player == 0:
             for index in self.shiplist_enemy:
                 #waagerecht
+                print("test1 {}".format(index))
                 if index.orientation == 0:
-
+                    print("test2 {}".format(index.row_or_col))
+                    print("test2 {}".format(row))
                     if index.row_or_col == row and index.pos_bow <= col <= index.pos_stern:
+                    #if index.pos_bow <= row <= index.pos_stern:
+                        index.size -= 1
+                        print(index.size)
                         return True
                     else:
-                        return False
+                        print("test3")
+                        continue
 
                 #senkrecht
                 elif index.orientation == 1:
+                    print("test4")
                     if index.row_or_col == col and index.pos_bow <= row <= index.pos_stern:
+                        index.size -= 1
+                        print(index.size)
                         return True
                     else:
-                        return False
+                        print("test5")
+                        continue
+        else:
+            print("test6")
 
         # Zug Gegner
-        elif player ==1:
+        if player ==1:
             for index in self.shiplist_agent:
                 # waagerecht
                 if index.orientation == 0:
 
                     if index.row_or_col == row and index.pos_bow <= col <= index.pos_stern:
+                        index.size -= 1
+                        print("index.size")
+                        print(index.size)
                         return True
                     else:
                         return False
@@ -127,9 +142,15 @@ class CustomEnv(gym.Env):
                 # senkrecht
                 elif index.orientation == 1:
                     if index.row_or_col == col and index.pos_bow <= row <= index.pos_stern:
+                        index.size -= 1
+                        print(index.size)
                         return True
                     else:
                         return False
+
+        else:
+            print("test2")
+
 
 
 
@@ -160,7 +181,7 @@ class CustomEnv(gym.Env):
         shot = [r_shot_X, r_shot_Y]
         return shot
 
-    '''def opponent_move(self):
+    def agent_move(self):
         """
         Set a circle at a random free position of the board.
         return:
@@ -171,7 +192,7 @@ class CustomEnv(gym.Env):
         y = int(input("Schuss Y Koordinate: "))
         shot = [x,y]
         return shot
-    '''
+
 
     def compute_reward(self, winner):
         """
@@ -214,9 +235,10 @@ class CustomEnv(gym.Env):
            return self.board, reward, done, {}
 
         # Agent soll schießen
-        shot = self.opponent_move()
+        shot = self.agent_move()
 
         # platziere denn Schuss auf dem Spielfeld und zeichne neu
+        self.check_hit(0, shot[0], shot[1])
         self.board.place_hit(action[0], action[1], self.board.agent_board)
         self.board.place_hit(shot[0], shot[1], self.board.enemy_board)
         self.board.draw_board()
