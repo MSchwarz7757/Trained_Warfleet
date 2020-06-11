@@ -28,49 +28,36 @@ class CustomEnv(gym.Env):
         # zeichne das Spielfeld am Anfang leer
         self.board.draw_board()
         self.start = True
-        self.num_ship = 0
+        self.num_ship_agent = 0
+        self.num_ship_enemy = 0
 
+        self.test = 0
         #self.combat()
 
     def place_ships(self):
-        # frage den Spieler/Agenten nach den Positionen
-        # self.board.place_agent_ship()
 
-        # place 4 subs for each player
-        if self.num_ship <= 4:
-            # r_pos_start, r_pos_end, r_orientation, r_row, size = self.board.place_agent_ship(2)
-            # self.shiplist_agent.insert(self.num_ship, Warships(r_pos_start, r_pos_end, r_orientation, r_row, size))
+        small_ship = 4
+        middle_ship = 2 +small_ship
+        big_ship = 2 + middle_ship
+        cruiser_ship = 2 + big_ship
+
+        if self.num_ship_agent < small_ship:
             self.agent_placement(2, self.shiplist_agent)
-            self.enemy_placement(2, self.shiplist_enemy)
-            self.board.draw_board()
-            self.num_ship += 1
-
-        # place 3 destroyers for each player
-        if 4 <= self.num_ship <= 7:
-            # r_pos_start, r_pos_end, r_orientation, r_row, size = self.board.place_agent_ship(3)
-            # self.shiplist_agent.insert(self.num_ship, Warships(r_pos_start, r_pos_end, r_orientation, r_row, size))
+        elif small_ship <= self.num_ship_agent < middle_ship:
             self.agent_placement(3, self.shiplist_agent)
-            self.enemy_placement(3, self.shiplist_enemy)
-            self.board.draw_board()
-            self.num_ship += 1
-
-        # place 2 cruisers for each player
-        if 7 <= self.num_ship <= 9:
-            # r_pos_start, r_pos_end, r_orientation, r_row, size = self.board.place_agent_ship(4)
-            # self.shiplist_agent.insert(self.num_ship, Warships(r_pos_start, r_pos_end, r_orientation, r_row, size))
+        elif middle_ship <= self.num_ship_agent < big_ship:
             self.agent_placement(4, self.shiplist_agent)
-            self.enemy_placement(4, self.shiplist_enemy)
-            self.board.draw_board()
-            self.num_ship += 1
-
-        # place 1 battleship for each player
-        if 9 <= self.num_ship <= 10:
-            # r_pos_start, r_pos_end, r_orientation, r_row, size = self.board.place_agent_ship(5)
-            # self.shiplist_agent.insert(self.num_ship, Warships(r_pos_start, r_pos_end, r_orientation, r_row, size))
+        elif big_ship <= self.num_ship_agent < cruiser_ship:
             self.agent_placement(5, self.shiplist_agent)
+
+        if self.num_ship_enemy < small_ship:
+            self.enemy_placement(2, self.shiplist_enemy)
+        elif small_ship <= self.num_ship_enemy < middle_ship:
+            self.enemy_placement(3, self.shiplist_enemy)
+        elif middle_ship <= self.num_ship_enemy < big_ship:
+            self.enemy_placement(4, self.shiplist_enemy)
+        elif big_ship <= self.num_ship_enemy < cruiser_ship:
             self.enemy_placement(5, self.shiplist_enemy)
-            self.board.draw_board()
-            self.num_ship += 1
 
     def enemy_placement(self, size, shiplist):
         r_pos_start = np.random.randint(0, 9)
@@ -78,8 +65,10 @@ class CustomEnv(gym.Env):
         r_orientation = np.random.randint(0, 2)
         r_row = np.random.randint(0, 9)
 
-        shiplist.insert(self.num_ship, Warships(r_pos_start, r_pos_end, r_orientation, r_row, size))
-        self.board.place_enemy_ship(shiplist[self.num_ship])
+        ship = self.board.place_enemy_ship(r_pos_start, r_pos_end, r_orientation, r_row, size)
+        if ship is not None:
+            shiplist.insert(self.num_ship_enemy, ship)
+            self.num_ship_enemy += 1
 
     def agent_placement(self, size, shiplist):
         r_pos_start = np.random.randint(0, 9)
@@ -87,8 +76,10 @@ class CustomEnv(gym.Env):
         r_orientation = np.random.randint(0, 2)
         r_row = np.random.randint(0, 9)
 
-        shiplist.insert(self.num_ship, Warships(r_pos_start, r_pos_end, r_orientation, r_row, size))
-        self.board.place_agent_ship(shiplist[self.num_ship])
+        ship = self.board.place_agent_ship(r_pos_start, r_pos_end, r_orientation, r_row, size)
+        if ship is not None:
+            shiplist.insert(self.num_ship_agent, ship)
+            self.num_ship_agent += 1
 
     def reset(self):
         """
@@ -99,52 +90,73 @@ class CustomEnv(gym.Env):
         #self.board.reset_board(10)
         return self.board
 
+    '''
+    Problem bei check_hit ist, dass die Schiffsliste noch mit unsichtbaren schiffen gefüllt ist weil diese nicht korrekt positioniert werden.
+    Auch weil das verschieben in Klasse Spielfeld die koordinaten verschiebt wenn die Schiffe zu nahe am Rand sind aber die Liste noch die alten koordinaten hat
+    '''
     def check_hit(self, player, x, y):
         #Zug Agent
-        if player == 0:
+        if player == 0 and self.shiplist_enemy:
             for index in self.shiplist_enemy:
                 #waagerecht
                 if index.orientation == 0:
                     if index.row_or_col == y and index.pos_bow <= x <= index.pos_stern:
-                    #if index.pos_bow <= row <= index.pos_stern:
                         index.size -= 1
-                        print(index.size)
+                        #print("Size: " + str(index.size))
+                        #print("Spieler hat getroffen: {}/{}".format(x,y))
+                        if index.size is 0:
+                            self.shiplist_enemy.remove(index)
+                            print("Schiff zerstört")
                         return True
                     else:
-                        continue
+                        pass
 
                 #senkrecht
                 elif index.orientation == 1:
                     if index.row_or_col == x and index.pos_bow <= y <= index.pos_stern:
                         index.size -= 1
-                        print(index.size)
+                        #print("Size: " + str(index.size))
+                        #print("Spieler hat getroffen: {}/{}".format(x,y))
+                        if index.size is 0:
+                            self.shiplist_enemy.remove(index)
+                            print("Schiff zerstört")
                         return True
                     else:
-                        continue
-        else:
-            print("test6")
+                        pass
+            if index.size is 0:
+                self.shiplist_enemy.remove(index)
+                print("Schiff zerstört")
 
         # Zug Gegner
-        if player ==1:
+        if player == 1 and self.shiplist_agent:
             for index in self.shiplist_agent:
                 # waagerecht
                 if index.orientation == 0:
                     if index.row_or_col == y and index.pos_bow <= x <= index.pos_stern:
                         index.size -= 1
+                        #print("Size: "+str(index.size))
+                        #print("Computer hat getroffen {}/{}".format(x,y))
+                        if index.size is 0:
+                            self.shiplist_agent.remove(index)
+                            print("Schiff zerstört")
                         return True
                     else:
-                        return False
+                        pass
 
                 # senkrecht
                 elif index.orientation == 1:
                     if index.row_or_col == x and index.pos_bow <= y <= index.pos_stern:
                         index.size -= 1
+                        #print("Size: "+str(index.size))
+                        #print("Computer hat getroffen {}/{}".format(x,y))
+                        if index.size is 0:
+                            self.shiplist_agent.remove(index)
+                            print("Schiff zerstört")
                         return True
                     else:
-                        return False
+                        pass
 
-        else:
-            print("test2")
+
 
     def check_winner(self):
         """
@@ -153,12 +165,16 @@ class CustomEnv(gym.Env):
             0 - no winner
             1 - current player is winner
         """
-        if self.shiplist_enemy:
-            return 0
-        elif self.shiplist_agent:
-            return 0
+        if not self.shiplist_enemy:
+            print("---------------- Ende -------------------")
+            print("Der Agent hat gewonnen")
+            return True
+        elif not self.shiplist_agent:
+            print("---------------- Ende -------------------")
+            print("Der Computer hat gewonnen")
+            return True
         else:
-            return 1
+            return False
 
     def sample(self):
         """
@@ -171,7 +187,6 @@ class CustomEnv(gym.Env):
 
         # check if action is valid board position
         shot = self.check_shot_postion(r_shot_X, r_shot_Y)
-        print(shot)
         return shot
 
     def check_shot_postion(self, x, y):
@@ -190,11 +205,14 @@ class CustomEnv(gym.Env):
             True, if board is completely filled.
             False, otherwise.
         """
+        # just to get a neat output
+        print("--------------------------------")
         r_shot_X = np.random.randint(0, 10)
+        r_shot_X = int(input("X:"))
         r_shot_Y = np.random.randint(0, 10)
+        r_shot_Y = int(input("Y:"))
 
         shot = self.check_shot_postion(r_shot_X, r_shot_Y)
-        print(shot)
         return shot
 
     def compute_reward(self, winner):
@@ -231,39 +249,29 @@ class CustomEnv(gym.Env):
 
         # Spielfeld aufbauen
         while self.start:
-            self.place_ships()
             # wenn alle Schiffe platziert wurden
-            if self.num_ship == 11:
-                print("Alle Schiffe wurden platziert")
-                self.start = False
-
+            if self.num_ship_agent >= 10 and self.num_ship_enemy >= 10:
+                if self.num_ship_agent == len(self.shiplist_agent):
+                    self.start = False
+            self.place_ships()
+            self.board.draw_board()
+        # abc = input("Klicke für jeden einzelnen Schritt")
         reward = 0
         done = False
-        count_shots = 0
 
         # Agent soll schießen
         shot = self.agent_move()
-
         # platziere denn Schuss auf dem Spielfeld und zeichne neu
-        self.check_hit(0, shot[0], shot[1])
+
         self.board.place_hit(action[0], action[1], self.board.agent_board)
         self.board.place_hit(shot[0], shot[1], self.board.enemy_board)
         self.board.draw_board()
-        count_shots += 1
 
-        abc = input("Klicke für jeden einzelnen Schritt")
-
-        # in der if abfrage ist noch ein fehler drinn !
-        if self.board.enemy_board[shot[0]][shot[1]] is self.hit:
-            # do not change board
-            print("Hier war schon ein schuss")
-            # return self.board, reward, done, {}
-
-        if self.board.agent_board[action[0]][action[1]] is self.ship:
-            print("Eins deiner Schiffe wurde getroffen")
-
-        if self.board.enemy_board[shot[0]][shot[1]] is self.ship:
-            print("Du hast ein Schiff getroffen")
+        if self.check_hit(0, shot[0], shot[1]):
+            reward += 1
+        self.check_hit(1, action[0], action[1])
+        if self.check_winner():
+            done = True
 
         return self.board, reward, done, {}
 
