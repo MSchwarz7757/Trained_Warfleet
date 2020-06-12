@@ -5,6 +5,14 @@ from .Warships import Warships
 
 
 class Board:
+
+    """
+    Class Board generates two (2-Dimensional) Arrays.
+    Every Array is a Battlefield for the game.
+    The Field at the bottom is the player/agent field
+    The field at the toop is the Computer/Enemy field
+    """
+
     def __init__(self, board_size):
         self.board_size = board_size
         self.enemy_board = []
@@ -13,11 +21,20 @@ class Board:
         self.reset_board(board_size)
 
     def reset_board(self, board_size):
+        """
+        creates two array with empty strings inside.
+        Start position for the game.
+        :param board_size: defines which size the the battlefield should have
+        """
         for x in range(board_size):
             self.enemy_board.append([" "] * board_size)
             self.agent_board.append([" "] * board_size)
 
     def choose_random_color(self):
+        """
+        Creates a list with colors and gives a random color back.
+        Is used to give every ship a different color.
+        """
         color_list = []
         black = '\033[30m'
         red = '\033[31m'
@@ -50,35 +67,41 @@ class Board:
         return str(random.choice(color_list))
 
     def draw_board(self):
-        # Clear Screen with empty lines
+        """
+        The two arrays for eacht battlefield is printed inside the console.
+        Some colors and numbers for the axis are added
+        """
+
+        # colors for the battlefield
         background = '\x1b[2;31;0m'
         x_axis_color = '\x1b[1;30;0m'
         y_axis_color = '\x1b[1;30;0m'
         terminal = '\x1b[0;0;0m'
+
+        # just some space to get a nice output
         space_btw_ships = " "
         space_btw_axis = " "
         axis_numbers = " 0 1 2 3 4 5 6 7 8 9"
 
+        # x = counter for the y a_axis
         x = 0
+        # Clear Screen with empty lines
         print('\n' * 40)
-        print("Gegnerisches Spielfeld")
+        print("--- Computer Spielfeld ---")
         print(x_axis_color + space_btw_axis + axis_numbers + terminal) # x_axis
         for row in self.enemy_board:
             string = y_axis_color + str(x) + background+space_btw_axis + space_btw_ships.join(row) # y_axis + battelfield
             cprint(string, 'red', 'on_blue')
             x += 1
         print('\n')
-        print("Dein Spielfeld")
+        print("--- Spieler/Agent Spielfeld ---")
+        # x = counter for the y a_axis
         x = 0
         print(x_axis_color + space_btw_axis + axis_numbers + terminal) # x_axis
         for row in self.agent_board:
             string = y_axis_color + str(x) + background + space_btw_axis + space_btw_ships.join(row) # y_axis + battelfield
             cprint(string, 'white', 'on_blue')
             x += 1
-
-    # hier soll überprüft werden das die schiffe nicht übereinander liegen
-    def check_double_position(self):
-        pass
 
     def place_enemy_ship(self, r_pos_start, r_pos_end, r_orientation, r_row, size):
 
@@ -88,9 +111,9 @@ class Board:
         column = r_row
         position_free = True
 
+        #  0 == horizontally
         if orientation == 0:
             start, end = self.move_ship(start, end)
-            color = self.choose_random_color()
             for row in range(start, end + 1):
                 if self.empty_space(column, row, self.enemy_board):
                     position_free = True
@@ -98,14 +121,17 @@ class Board:
                     # stop the for loop if any position is filled with "x"
                     position_free = False
                     break
+            # if position is free then place the ship symbol
             if position_free:
                 for row in range(start, end + 1):
-                    self.enemy_board[column][row] = color + Warships.check_size(size)
+                    # draw the shipsymbol whith a random color and the symbol
+                    self.enemy_board[column][row] = self.choose_random_color() + Warships.check_size(size)
+                # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
 
+        # 1 == vertically
         if orientation == 1:
             start, end = self.move_ship(start, end)
-            color = self.choose_random_color()
             for row in range(start, end + 1):
                 if self.empty_space(row, column, self.enemy_board):
                     position_free = True
@@ -113,9 +139,12 @@ class Board:
                     # stop the for loop if any position is filled with "x"
                     position_free = False
                     break
+            # if position is free then place the ship symbol
             if position_free:
                 for row in range(start, end + 1):
-                    self.enemy_board[row][column] = color + Warships.check_size(size)
+                    # draw the shipsymbol whith a random color and the symbol
+                    self.enemy_board[row][column] = self.choose_random_color() + Warships.check_size(size)
+                # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
 
     def place_agent_ship(self, r_pos_start, r_pos_end, r_orientation, r_row, size):
@@ -126,7 +155,7 @@ class Board:
         column = r_row
         position_free = True
 
-        #waagerecht
+        #  0 == horizontally
         if orientation == 0:
             start, end = self.move_ship(start, end)
             color = self.choose_random_color()
@@ -139,10 +168,9 @@ class Board:
             if position_free:
                 for row in range(start, end + 1):
                     self.agent_board[column][row] = color + Warships.check_size(size)
-                print("start-object: {}  End: {}  or: {} row: {}".format(start, end, orientation, column))
                 return Warships(start, end, orientation, column, size)
 
-        #senkrecht
+        # 1 == vertically
         if orientation == 1:
             start, end = self.move_ship(start, end)
             color = self.choose_random_color()
@@ -156,16 +184,25 @@ class Board:
             if position_free:
                 for row in range(start, end + 1):
                     self.agent_board[row][column] = color + Warships.check_size(size)
-                print("start-object: {}  End: {}  or: {} row: {}".format(start, end, orientation, column))
                 return Warships(start, end, orientation, column, size)
 
     def empty_space(self, row, column, selected_board):
+        """
+        check if the position for the ship is empty
+        :param selected_board: the agent or computer board
+        """
         if selected_board[row][column] == " ":
             return True
         else:
             return False
 
     def move_ship(self, start, end):
+        """
+        If the end is not inside the battlefield, then move it to the middle
+        :param start: ship start point
+        :param end: ship end point
+        :return: new position
+        """
         if end > 9:
             end = end - 5 # move the ship 5 fields to the right side
             start = start - 5
@@ -198,9 +235,10 @@ class Board:
         else:
             return False
 
+    # getter
     def get_enemy_board(self):
         return self.enemy_board
-
+    # getter
     def get_agent_board(self):
         return self.agent_board
 
