@@ -25,6 +25,10 @@ class CustomEnv(gym.Env):
         self.shiplist_enemy = []
         self.shiplist_agent = []
 
+        # to collect all the hits made by the agent
+        self.hitlist_agent = []
+        self.count_hit = 0
+
         # zeichne das Spielfeld am Anfang leer
         self.board.draw_board()
         self.start = True
@@ -60,10 +64,11 @@ class CustomEnv(gym.Env):
             self.enemy_placement(5, self.shiplist_enemy)
 
     def enemy_placement(self, size, shiplist):
-        r_pos_start = np.random.randint(0, 9)
+        r_pos_start = np.random.randint(0, 10)
         r_pos_end = r_pos_start + size-1
         r_orientation = np.random.randint(0, 2)
-        r_row = np.random.randint(0, 9)
+        r_row = np.random.randint(0, 10)
+        print("start: {}  End: {}  or: {} row: {}".format(r_pos_start, r_pos_end, r_orientation, r_row))
 
         ship = self.board.place_enemy_ship(r_pos_start, r_pos_end, r_orientation, r_row, size)
         if ship is not None:
@@ -71,10 +76,11 @@ class CustomEnv(gym.Env):
             self.num_ship_enemy += 1
 
     def agent_placement(self, size, shiplist):
-        r_pos_start = np.random.randint(0, 9)
+        r_pos_start = np.random.randint(0, 10)
         r_pos_end = r_pos_start + size - 1
         r_orientation = np.random.randint(0, 2)
-        r_row = np.random.randint(0, 9)
+        r_row = np.random.randint(0, 10)
+        print("start: {}  End: {}  or: {} row: {}".format(r_pos_start, r_pos_end, r_orientation, r_row))
 
         ship = self.board.place_agent_ship(r_pos_start, r_pos_end, r_orientation, r_row, size)
         if ship is not None:
@@ -132,7 +138,7 @@ class CustomEnv(gym.Env):
             for index in self.shiplist_agent:
                 # waagerecht
                 if index.orientation == 0:
-                    if index.row_or_col == y and index.pos_bow <= x <= index.pos_stern:
+                    if index.row_or_col == y and index.pos_bow <= x <= index.pos_stern :
                         index.size -= 1
                         #print("Size: "+str(index.size))
                         #print("Computer hat getroffen {}/{}".format(x,y))
@@ -156,8 +162,6 @@ class CustomEnv(gym.Env):
                     else:
                         pass
 
-
-
     def check_winner(self):
         """
         Check shiplists after every hit.
@@ -165,6 +169,8 @@ class CustomEnv(gym.Env):
             0 - no winner
             1 - current player is winner
         """
+        print("agent: {}".format(self.shiplist_agent))
+        print("computer: {}".format(self.shiplist_enemy))
         if not self.shiplist_enemy:
             print("---------------- Ende -------------------")
             print("Der Agent hat gewonnen")
@@ -205,12 +211,12 @@ class CustomEnv(gym.Env):
             True, if board is completely filled.
             False, otherwise.
         """
-        # just to get a neat output
-        print("--------------------------------")
         r_shot_X = np.random.randint(0, 10)
-        r_shot_X = int(input("X:"))
         r_shot_Y = np.random.randint(0, 10)
-        r_shot_Y = int(input("Y:"))
+
+        # for test only
+        # r_shot_X = int(input("X:"))
+        # r_shot_Y = int(input("Y:"))
 
         shot = self.check_shot_postion(r_shot_X, r_shot_Y)
         return shot
@@ -255,21 +261,30 @@ class CustomEnv(gym.Env):
                     self.start = False
             self.place_ships()
             self.board.draw_board()
-        # abc = input("Klicke für jeden einzelnen Schritt")
         reward = 0
         done = False
 
+        # input to go through all the steps
+        #input("Weiter....")
         # Agent soll schießen
         shot = self.agent_move()
         # platziere denn Schuss auf dem Spielfeld und zeichne neu
 
-        self.board.place_hit(action[0], action[1], self.board.agent_board)
-        self.board.place_hit(shot[0], shot[1], self.board.enemy_board)
+        # first check if the position is not alreasy shot and try to place the shot on the Battlefield
+        free_agent = self.board.place_hit(action[0], action[1], self.board.agent_board)
+        free_enemy = self.board.place_hit(shot[0], shot[1], self.board.enemy_board)
         self.board.draw_board()
 
-        if self.check_hit(0, shot[0], shot[1]):
-            reward += 1
-        self.check_hit(1, action[0], action[1])
+        # if position is free then check if a ship is hit
+        if free_enemy:
+            if self.check_hit(0, shot[0], shot[1]):
+                reward += 1
+                self.count_hit += 1
+                self.hitlist_agent.insert(self.count_hit, [shot[0], shot[1]])
+        if free_agent:
+            self.check_hit(1, action[0], action[1])
+
+        # check winner by shiplist
         if self.check_winner():
             done = True
 

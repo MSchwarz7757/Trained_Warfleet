@@ -139,6 +139,7 @@ class Board:
             if position_free:
                 for row in range(start, end + 1):
                     self.agent_board[column][row] = color + Warships.check_size(size)
+                print("start-object: {}  End: {}  or: {} row: {}".format(start, end, orientation, column))
                 return Warships(start, end, orientation, column, size)
 
         #senkrecht
@@ -155,6 +156,7 @@ class Board:
             if position_free:
                 for row in range(start, end + 1):
                     self.agent_board[row][column] = color + Warships.check_size(size)
+                print("start-object: {}  End: {}  or: {} row: {}".format(start, end, orientation, column))
                 return Warships(start, end, orientation, column, size)
 
     def empty_space(self, row, column, selected_board):
@@ -166,20 +168,35 @@ class Board:
     def move_ship(self, start, end):
         if end > 9:
             end = end - 5 # move the ship 5 fields to the right side
-            start = start - end
+            start = start - 5
             return start, end
         else:
             return start, end
 
     def hit(self, x, y, selected_board):
-        if selected_board[y][x] == "O":
+        '''
+        This method checks if the coordinates have already been shot
+        :return: True if board is marked with a shot
+        '''
+        string1 = "O"
+        print(selected_board[y][x])
+        print(string1)
+        if selected_board[y][x] is string1:
+            print("doppelter schuss")
             return True
         else:
             return False
 
     def place_hit(self, x, y, selected_board):
+        '''
+        This method is to place the hit on the board
+        '''
         if not self.hit(x, y, selected_board):
+            print("Gezeichnet")
             selected_board[y][x] = "O"
+            return True
+        else:
+            return False
 
     def get_enemy_board(self):
         return self.enemy_board
