@@ -25,8 +25,8 @@ class Board:
         :param board_size: defines which size the the battlefield should have
         """
         for x in range(board_size):
-            self.enemy_board.append([" "] * board_size)
-            self.agent_board.append([" "] * board_size)
+            self.enemy_board.append([1] * board_size)
+            self.agent_board.append([1] * board_size)
         self.draw_board()
 
     def choose_random_color(self):
@@ -82,25 +82,17 @@ class Board:
         space_btw_axis = " "
         axis_numbers = " 0 1 2 3 4 5 6 7 8 9"
 
-        # x = counter for the y a_axis
-        x = 0
         # Clear Screen with empty lines
         print('\n' * 40)
         print("--- Computer Spielfeld ---")
         print(x_axis_color + space_btw_axis + axis_numbers + terminal) # x_axis
         for row in self.enemy_board:
-            string = y_axis_color + str(x) + background+space_btw_axis + space_btw_ships.join(row) # y_axis + battelfield
-            cprint(string, 'red', 'on_blue')
-            x += 1
+            print(row)
         print('\n')
         print("--- Spieler/Agent Spielfeld ---")
-        # x = counter for the y a_axis
-        x = 0
         print(x_axis_color + space_btw_axis + axis_numbers + terminal) # x_axis
         for row in self.agent_board:
-            string = y_axis_color + str(x) + background + space_btw_axis + space_btw_ships.join(row) # y_axis + battelfield
-            cprint(string, 'white', 'on_blue')
-            x += 1
+            print(row)
 
     def place_ship(self, choose_board, r_pos_start, r_pos_end, r_orientation, r_row, size):
 
@@ -140,11 +132,9 @@ class Board:
                     break
             # if position is free then place the ship symbol
             if position_free:
-                # choose a random color for this ship
-                color = self.choose_random_color()
                 for row in range(start, end + 1):
                     # draw the shipsymbol whith a random color and the symbol
-                    board[column][row] = color + Warships.check_size(size)
+                    board[column][row] = Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
 
@@ -161,11 +151,9 @@ class Board:
                     break
             # if position is free then place the ship symbol
             if position_free:
-                # choose a random color for this ship
-                color = self.choose_random_color()
                 for row in range(start, end + 1):
                     # draw the shipsymbol whith a random color and the symbol
-                    board[row][column] = color + Warships.check_size(size)
+                    board[row][column] = Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
 
@@ -174,7 +162,7 @@ class Board:
         check if the position for the ship is empty
         :param selected_board: the agent or computer board
         """
-        if selected_board[row][column] == " ":
+        if selected_board[row][column] == 1:
             return True
         else:
             return False
@@ -198,10 +186,8 @@ class Board:
         This method checks if the coordinates have already been shot
         :return: True if board is marked with a shot
         """
-        string1 = "O"
-        print(selected_board[y][x])
-        print(string1)
-        if selected_board[y][x] is string1:
+        shot_symbol = 0
+        if selected_board[y][x] is shot_symbol:
             print("doppelter schuss")
             return True
         else:
@@ -213,7 +199,7 @@ class Board:
         """
         if not self.hit(x, y, selected_board):
             print("Gezeichnet")
-            selected_board[y][x] = "O"
+            selected_board[y][x] = 0
             return True
         else:
             return False

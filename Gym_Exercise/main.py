@@ -17,7 +17,12 @@ def main():
         episode_reward += reward
         state = next_state
         n_steps += 1
-    print(state)
+    # just an empty line
+    print()
+    print()
+    print("**** Last state after the game is finished ****")
+    for row in state:
+        print(row)
     print(
         "episode_reward:", episode_reward,
         "\tn_steps:", n_steps)

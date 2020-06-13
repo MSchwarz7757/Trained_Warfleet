@@ -4,10 +4,10 @@ class Warships:
     This class creates a single ship based on random values.
     The generates Objects contain all information about the ship.
     """
-    small_ship = "X"
-    middle_ship = "X"
-    big_ship = "X"
-    cruiser_ship = "X"
+    small_ship = 2
+    middle_ship = 2
+    big_ship = 2
+    cruiser_ship = 2
 
     def __init__(self, pos_bow, pos_stern, orientation, row_or_col, size):
 

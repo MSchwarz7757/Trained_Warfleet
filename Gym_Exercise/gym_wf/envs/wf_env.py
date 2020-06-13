@@ -27,6 +27,9 @@ class CustomEnv(gym.Env):
 
         # board size
         self.board = Board(10)
+        self.hit = "0"
+        self.empty_field = "1"
+        self.ship = "2"
 
         # a shiplis for every player/agent
         self.shiplist_enemy = []
@@ -254,9 +257,11 @@ class CustomEnv(gym.Env):
                 reward += 1
                 self.count_hit += 1
                 self.hitlist_agent.insert(self.count_hit, [action[0], action[1]])
-                return reward, self.hitlist_agent
+                return reward
         if free_agent_field:
             self.check_hit(1, shot[0], shot[1])
+            return reward
+        return reward
 
     def step(self, action):
         """
@@ -285,7 +290,7 @@ class CustomEnv(gym.Env):
             self.board.draw_board()
         reward = 0
         done = False
-        reward, hitlist = self.apply_action(action, reward)
+        reward += self.apply_action(action, reward)
 
         # check winner by shiplist
         done, player = self.check_winner()
