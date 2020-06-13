@@ -4,4 +4,10 @@ The goal is the implementation and training of an agent in python using reinforc
 To achieve this we must first develop a feasible environment for the agent to be trained in.
 For this purpose we chose the [OpenAI Gym](https://gym.openai.com/) toolkit, which provides an easy-to-use suite of reinforcement learning tasks.
 
-## Usage:
+## Usage Instructions:
+
+
+## Current State:
+
+
+## Future Outlook:
