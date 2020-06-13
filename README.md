@@ -5,10 +5,10 @@ To achieve this we also had to develop a feasible environment for the agent to b
 For this purpose we chose the [OpenAI Gym](https://gym.openai.com/) toolkit, which provides an easy-to-use suite of reinforcement learning tasks.
 
 ## Current State:
-Right now the environment should be ready to be used to train agents.
+Right now the *environment* should be ready to be used to train *agents*.
 The rules of the game and the process of playing have been implemented. 
-Currently a basic agent, which takes random actions, is set up to play against a simple AI, which in turn also takes random actions. 
-The agent gains a reward for every hit and a greater reward for winning a match.
+Currently a basic *agent*, which takes random actions, is set up to play against a simple *AI*, which in turn also takes random actions. 
+The agent gains a *small reward* for every hit and a *greater reward* for winning a match.
 
 (desc spaces)
 
