@@ -2,17 +2,15 @@ import gym
 from gym import spaces
 import numpy as np
 import random as random
-from .Battlefield import Board
+from .Battlefield import Battlefield
 from .Warships import Warships
 
 
 class CustomEnv(gym.Env):
 
     def __init__(self):
-        # board position to set a cross (can be 0, 1, 2 in each dimension)
         # set to 4 because the agent should shoot left, right, above, or below
-        self.action_space = spaces.MultiDiscrete([4, 4])
-        # board with circles and crosses  (can be 0, 1, 2 in each dimension)
+        self.action_space = spaces.MultiDiscrete([10, 10])
         self.observation_space = spaces.MultiDiscrete([
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -23,11 +21,12 @@ class CustomEnv(gym.Env):
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-            [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]])
+            [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+        ])
 
         # board size
-        self.board = Board(10)
-        self.hit = "0"
+        self.board = Battlefield(10)
+        self.shot = "0"
         self.empty_field = "1"
         self.ship = "2"
 
@@ -143,7 +142,6 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_enemy.remove(ship)
-                            print("Schiff zerstört")
                         return True
 
                 # 1 == vertically
@@ -170,7 +168,6 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_agent.remove(ship)
-                            print("Schiff zerstört")
                         return True
 
                 # 1 == vertically
@@ -182,23 +179,22 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_agent.remove(ship)
-                            print("Schiff zerstört")
                         return True
 
     def check_winner(self):
         """
         Check shiplists after every hit.
         return:
-            boolean value
+            boolean value and the player who has won the match
         """
         if not self.shiplist_enemy:
-            print("---------------- Ende -------------------")
-            print("Der Agent hat gewonnen")
+            print("---------------- End -------------------")
+            print("The Agent has won the game")
             done = True
             return done, 1
         elif not self.shiplist_agent:
-            print("---------------- Ende -------------------")
-            print("Der Computer hat gewonnen")
+            print("---------------- End -------------------")
+            print("The Computer has won the game")
             done = True
             return done, 2
         else:
@@ -220,10 +216,9 @@ class CustomEnv(gym.Env):
 
     def agent_move(self):
         """
-        Set a circle at a random free position of the board.
+        Set a shot at a random free position of the board.
         return:
-            True, if board is completely filled.
-            False, otherwise.
+            The shot coordinates
         """
         r_shot_X = np.random.randint(0, 10)
         r_shot_Y = np.random.randint(0, 10)
@@ -257,10 +252,8 @@ class CustomEnv(gym.Env):
                 reward += 1
                 self.count_hit += 1
                 self.hitlist_agent.insert(self.count_hit, [action[0], action[1]])
-                return reward
         if free_agent_field:
             self.check_hit(1, shot[0], shot[1])
-            return reward
         return reward
 
     def step(self, action):

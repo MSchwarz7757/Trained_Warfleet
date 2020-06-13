@@ -4,7 +4,7 @@ import random as random
 from .Warships import Warships
 
 
-class Board:
+class Battlefield:
 
     """
     Class Board generates two (2-Dimensional) Arrays.
@@ -68,29 +68,15 @@ class Board:
     def draw_board(self):
         """
         The two arrays for eacht battlefield is printed inside the console.
-        Some colors and numbers for the axis are added
         """
-
-        # colors for the battlefield
-        background = '\x1b[2;31;0m'
-        x_axis_color = '\x1b[1;30;0m'
-        y_axis_color = '\x1b[1;30;0m'
-        terminal = '\x1b[0;0;0m'
-
-        # just some space to get a nice output
-        space_btw_ships = " "
-        space_btw_axis = " "
-        axis_numbers = " 0 1 2 3 4 5 6 7 8 9"
 
         # Clear Screen with empty lines
         print('\n' * 40)
-        print("--- Computer Spielfeld ---")
-        print(x_axis_color + space_btw_axis + axis_numbers + terminal) # x_axis
+        print("--- Computer Battlefield ---")
         for row in self.enemy_board:
             print(row)
         print('\n')
-        print("--- Spieler/Agent Spielfeld ---")
-        print(x_axis_color + space_btw_axis + axis_numbers + terminal) # x_axis
+        print("--- Spieler/Agent Battlefield ---")
         for row in self.agent_board:
             print(row)
 
@@ -127,13 +113,13 @@ class Board:
                 if self.empty_space(column, row, board):
                     position_free = True
                 else:
-                    # stop the for loop if any position is filled with "x"
+                    # stop the for loop if any position is filled with "0"
                     position_free = False
                     break
             # if position is free then place the ship symbol
             if position_free:
                 for row in range(start, end + 1):
-                    # draw the shipsymbol whith a random color and the symbol
+                    # draw the ship symbol with a random color and the symbol
                     board[column][row] = Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
@@ -146,13 +132,13 @@ class Board:
                 if self.empty_space(row, column, board):
                     position_free = True
                 else:
-                    # stop the for loop if any position is filled with "x"
+                    # stop the for loop if any position is filled with "0"
                     position_free = False
                     break
             # if position is free then place the ship symbol
             if position_free:
                 for row in range(start, end + 1):
-                    # draw the shipsymbol whith a random color and the symbol
+                    # draw the ship symbol with a random color and the symbol
                     board[row][column] = Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
@@ -188,7 +174,6 @@ class Board:
         """
         shot_symbol = 0
         if selected_board[y][x] is shot_symbol:
-            print("doppelter schuss")
             return True
         else:
             return False
@@ -197,9 +182,9 @@ class Board:
         """
         This method is to place the hit on the board
         """
+        shot_symbol = 0
         if not self.hit(x, y, selected_board):
-            print("Gezeichnet")
-            selected_board[y][x] = 0
+            selected_board[y][x] = shot_symbol
             return True
         else:
             return False
