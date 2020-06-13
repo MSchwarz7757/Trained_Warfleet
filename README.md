@@ -16,5 +16,5 @@ The agent gains a *small reward* for every hit and a *greater reward* for winnin
 ## Usage Instructions:
 
 ## Future Outlook:
-Next up is the incorporation of reinforcement learning algorithems using the [Baselines](https://github.com/openai/baselines) framwork leading into the training of multiple agents with different algorithems.
+Next up is the incorporation of reinforcement learning algorithems using the [OpenAI Baselines](https://github.com/openai/baselines) framework leading into the training of multiple agents with different algorithems.
 
