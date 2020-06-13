@@ -18,8 +18,6 @@ class Board:
         self.enemy_board = []
         self.agent_board = []
 
-        self.reset_board(board_size)
-
     def reset_board(self, board_size):
         """
         creates two array with empty strings inside.
@@ -29,6 +27,7 @@ class Board:
         for x in range(board_size):
             self.enemy_board.append([" "] * board_size)
             self.agent_board.append([" "] * board_size)
+        self.draw_board()
 
     def choose_random_color(self):
         """
@@ -103,19 +102,37 @@ class Board:
             cprint(string, 'white', 'on_blue')
             x += 1
 
-    def place_enemy_ship(self, r_pos_start, r_pos_end, r_orientation, r_row, size):
+    def place_ship(self, choose_board, r_pos_start, r_pos_end, r_orientation, r_row, size):
 
+        """
+        A single ship is created on placed on the battlefield.
+        Is used for both players to create ships.
+        :param choose_board: the board that contains the ship
+        :param r_pos_start: start position for the ship
+        :param r_pos_end: end position for the ship
+        :param r_orientation: vertically or horizontal
+        :param r_row: row or column
+        :param size: lenth of the shop
+        :return: a single ship object
+        """
         start = r_pos_start
         end = r_pos_end
         orientation = r_orientation
         column = r_row
         position_free = True
 
+        # chose the correct board
+        if choose_board is 0:
+            board = self.enemy_board
+        else:
+            board = self.agent_board
+
         #  0 == horizontally
         if orientation == 0:
+            # check if position is not outside the battlefield
             start, end = self.move_ship(start, end)
             for row in range(start, end + 1):
-                if self.empty_space(column, row, self.enemy_board):
+                if self.empty_space(column, row, board):
                     position_free = True
                 else:
                     # stop the for loop if any position is filled with "x"
@@ -123,17 +140,20 @@ class Board:
                     break
             # if position is free then place the ship symbol
             if position_free:
+                # choose a random color for this ship
+                color = self.choose_random_color()
                 for row in range(start, end + 1):
                     # draw the shipsymbol whith a random color and the symbol
-                    self.enemy_board[column][row] = self.choose_random_color() + Warships.check_size(size)
+                    board[column][row] = color + Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
 
         # 1 == vertically
         if orientation == 1:
+            # check if position is not outside the battlefield
             start, end = self.move_ship(start, end)
             for row in range(start, end + 1):
-                if self.empty_space(row, column, self.enemy_board):
+                if self.empty_space(row, column, board):
                     position_free = True
                 else:
                     # stop the for loop if any position is filled with "x"
@@ -141,49 +161,12 @@ class Board:
                     break
             # if position is free then place the ship symbol
             if position_free:
+                # choose a random color for this ship
+                color = self.choose_random_color()
                 for row in range(start, end + 1):
                     # draw the shipsymbol whith a random color and the symbol
-                    self.enemy_board[row][column] = self.choose_random_color() + Warships.check_size(size)
+                    board[row][column] = color + Warships.check_size(size)
                 # return the ship object with all necessary information
-                return Warships(start, end, orientation, column, size)
-
-    def place_agent_ship(self, r_pos_start, r_pos_end, r_orientation, r_row, size):
-
-        start = r_pos_start
-        end = r_pos_end
-        orientation = r_orientation
-        column = r_row
-        position_free = True
-
-        #  0 == horizontally
-        if orientation == 0:
-            start, end = self.move_ship(start, end)
-            color = self.choose_random_color()
-            for row in range(start, end + 1):
-                if self.empty_space(column, row, self.agent_board):
-                    position_free = True
-                else:
-                    position_free = False
-                    break
-            if position_free:
-                for row in range(start, end + 1):
-                    self.agent_board[column][row] = color + Warships.check_size(size)
-                return Warships(start, end, orientation, column, size)
-
-        # 1 == vertically
-        if orientation == 1:
-            start, end = self.move_ship(start, end)
-            color = self.choose_random_color()
-            for row in range(start, end + 1):
-                if self.empty_space(row, column, self.agent_board):
-                    position_free = True
-                else:
-                    position_free = False
-                    # stop the for loop if any position is filled with "x"
-                    break
-            if position_free:
-                for row in range(start, end + 1):
-                    self.agent_board[row][column] = color + Warships.check_size(size)
                 return Warships(start, end, orientation, column, size)
 
     def empty_space(self, row, column, selected_board):
@@ -211,10 +194,10 @@ class Board:
             return start, end
 
     def hit(self, x, y, selected_board):
-        '''
+        """
         This method checks if the coordinates have already been shot
         :return: True if board is marked with a shot
-        '''
+        """
         string1 = "O"
         print(selected_board[y][x])
         print(string1)
@@ -225,9 +208,9 @@ class Board:
             return False
 
     def place_hit(self, x, y, selected_board):
-        '''
+        """
         This method is to place the hit on the board
-        '''
+        """
         if not self.hit(x, y, selected_board):
             print("Gezeichnet")
             selected_board[y][x] = "O"

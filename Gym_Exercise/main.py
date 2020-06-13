@@ -12,7 +12,7 @@ def main():
     # get the initial state of the environment
     state = env.reset()
     while not done:
-        action = env.sample()
+        action = env.agent_move()
         next_state, reward, done, info = env.step(action)
         episode_reward += reward
         state = next_state
@@ -21,7 +21,6 @@ def main():
     print(
         "episode_reward:", episode_reward,
         "\tn_steps:", n_steps)
-
 
 if __name__ == "__main__":
     main()

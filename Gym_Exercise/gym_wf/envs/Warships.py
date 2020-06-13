@@ -4,10 +4,10 @@ class Warships:
     This class creates a single ship based on random values.
     The generates Objects contain all information about the ship.
     """
-    small_ship = "S"
-    middle_ship = "M"
-    big_ship = "B"
-    cruiser_ship = "C"
+    small_ship = "X"
+    middle_ship = "X"
+    big_ship = "X"
+    cruiser_ship = "X"
 
     def __init__(self, pos_bow, pos_stern, orientation, row_or_col, size):
 
@@ -31,10 +31,4 @@ class Warships:
         if size == 5:
             return Warships.cruiser_ship
 
-    """def submarine(self, ship):
-        if ship.pos_x and ship.pos_y >= 1 and ship.pos_y - ship.pos_x == 2:
-            return self.pos_bow, self.pos_stern, self.orientation, self.row_or_col, self.size
-
-    def get_position(self):
-        return self.pos_bow, self.pos_stern, self.orientation, self.row_or_col"""
 
