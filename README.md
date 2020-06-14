@@ -54,8 +54,6 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 <br />
 <br />
-<br />
-<br />
 
 <img align="left" src="images/match_end.PNG"> ...
 
