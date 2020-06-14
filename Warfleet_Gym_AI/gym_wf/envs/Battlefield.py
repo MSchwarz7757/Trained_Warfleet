@@ -8,7 +8,7 @@ class Battlefield:
 
     """
     Class Board generates two (2-Dimensional) Arrays.
-    Every Array represents one player'S Battlefield for the game.
+    Every Array represents one player's Battlefield for the game.
     The Field at the bottom is the player/agent field.
     The field at the top is the Computer/Enemy field.
     """
