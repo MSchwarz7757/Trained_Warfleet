@@ -14,7 +14,7 @@ The agent gains a *small reward* for every hit and a *greater reward* for winnin
 <br />
 <br />
 
-<img align="right" src="images/spaces.PNG">  The playing field or board of our game is a *10x10* 2D array of the type integer. Possible value here are *1* for water, *2* for parts of a ship and *0* for shot positions.
+<img align="right" src="images/spaces.PNG">  The playing field or board of our game is a *10x10* 2D array of the type *integer*. Possible values here are *1* for water, *2* for parts of a ship and *0* for shot positions.
 
 The action space in our environment consists of all possible coordinates in said board.
 
