@@ -29,13 +29,13 @@ The observation space describes the amount of possible values, 3 in this case, f
 <br />
 
 ## Usage Instructions:
-Since This project is based on *OpenAi Gym* it requires a python environment with the toolkit installed to function correctly.
-You could either set this up beforhand or simple add *gym* to your environment after cloning or downloading this repository.
-All you have to do after that to test our project is *run* the *main.py* file.
+Since this project is based on *OpenAi Gym* it requires a python environment with the toolkit installed to function correctly.
+You can either set this up beforhand or simply add *gym* to your environment after cloning or downloading this repository.
+All you have to do to test our project after that is *run* the *main.py* file.
 
 <br />
 
-<img align="right" src="images/ep_steps.PNG"> To view mid game board states easier you could also adjust the maximum step size in *init.py* in the *gym_wf* folder.
+<img align="right" src="images/ep_steps.PNG"> To view mid game board states easier you can also adjust the *maximum step size* in *init.py* in the *gym_wf* folder.
 
 <br />
 <br />
