@@ -54,7 +54,7 @@ All you have to do to test our project after that is *run* the *main.py* file.
 <br />
 <br />
 
-<img align="left" src="images/match_end.PNG"> To the left we have a representation of the agent's opponent's board and below that the respective representation of the agent's board in a certain game state. As you can see the agent won be destorying all of its opponent's ships while 2 of its ships still remain partially intact. 
+<img align="left" src="images/match_end.PNG"> To the left we have a representation of the agent's opponent's board and below that the respective representation of the agent's board in a certain game state. As you can see the agent won by destorying all of its opponent's ships while 2 of its ships still remain partially intact. 
 
 <br />
 <br />
