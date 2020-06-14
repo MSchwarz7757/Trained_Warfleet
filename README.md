@@ -35,7 +35,7 @@ All you have to do after that to test our project is *run* the *main.py* file.
 
 <br />
 
-<img align="right" src="images/ep_steps.PNG"> To view mid game board states easier you could also adjust the maximum step size in *__init__.py* in the *gym_wf* folder.
+<img align="right" src="images/ep_steps.PNG"> To view mid game board states easier you could also adjust the maximum step size in *init.py* in the *gym_wf* folder.
 
 
 <img align="left" src="images/placement.PNG"> ...
