@@ -40,7 +40,7 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 <br />
 
-<img align="left" src="images/placement.PNG"> Here you can see the *console output* of the agents board after all ships have been placed and the firing of multiple shots from both sides. Once again: <br />
+<img align="left" src="images/placement.PNG"> Here you can see the *console output* of the agent's board after all ships have been placed and the firing of multiple shots from both sides/players. Once again: <br />
 *0 = shot* <br />
 *1 = water* <br />
 *2 = ship* <br />
@@ -54,7 +54,7 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 <br />
 
-<img align="left" src="images/match_end.PNG"> As you can see in this image the agent won be destorying all of his opponents ships while 2 of his ships still remain partially intact. 
+<img align="left" src="images/match_end.PNG"> Herw we have a representation of the agent's opponent's board and below that the respective representation of the agent's board in a certain game state. As you can see the agent won be destorying all of his opponent's ships while 2 of his ships still remain partially intact. 
 
 <br />
 <br />
