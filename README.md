@@ -49,6 +49,29 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 <br />
 
+<img align="left" src="images/end_match.PNG"> ...
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<img align="left" src="images/last_state.PNG"> ...
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
 ## Future Outlook:
 Next up is the incorporation of reinforcement learning algorithems using the [OpenAI Baselines](https://github.com/openai/baselines) framework leading into the training of multiple agents with a selection of the aforementioned algorithems.
 
