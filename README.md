@@ -11,12 +11,21 @@ The rules of the game and the process of playing have been implemented.
 Currently a basic *agent*, which takes random actions, is set up to play against a simple *AI*, which in turn also takes random actions. 
 The agent gains a *small reward* for every hit and a *greater reward* for winning a match.
 
+<br />
+<br />
+
 <img align="right" src="images/spaces.PNG">  The playing field or board of our game is a *10x10* 2D array of the type integer. Possible value here are *1* for water, *2* for parts of a ship and *0* for shot positions.
 
 The action space in our environment consists of all possible coordinates in said board.
 
 The observation space describes the amount of possible values, 3 in this case, for every board position.
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 ## Usage Instructions:
 
