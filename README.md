@@ -1,4 +1,4 @@
-# Trained Warfleet
+# Trained Warfleet (Group-ID 6)
 This project is part of our participation in the *intelligent systems* course at the [HSD]( https://hs-duesseldorf.de/) in Düsseldorf, Germany.   
 Our goal is the implementation and training of an [agent](https://en.wikipedia.org/wiki/Intelligent_agent), capable of competently playing the board game *warfleet*, in *python* using [reinforcement learning](https://en.wikipedia.org/wiki/Reinforcement_learning).     
 To achieve this we also had to develop a feasible environment for the agent to be trained in.   
