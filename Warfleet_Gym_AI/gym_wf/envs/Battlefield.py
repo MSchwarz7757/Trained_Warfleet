@@ -181,7 +181,7 @@ class Battlefield:
 
     def place_hit(self, x, y, selected_board):
         """
-        This method places a the hit marker on the board
+        This method places a hit marker on the board
         """
         shot_symbol = 0
         if not self.hit(x, y, selected_board):
