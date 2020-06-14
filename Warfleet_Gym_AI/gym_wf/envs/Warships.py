@@ -1,8 +1,8 @@
 class Warships:
 
     """
-    This class creates a single ship based on random values.
-    The generates Objects contain all information about the ship.
+    This class represents ships.
+    The generated Objects contain all attributes of a ship.
     """
     small_ship = 2
     middle_ship = 2

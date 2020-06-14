@@ -9,8 +9,9 @@ from .Warships import Warships
 class CustomEnv(gym.Env):
 
     def __init__(self):
-        # set to 4 because the agent should shoot left, right, above, or below
+        # set to 10 to represent all possible coordinates in a 10x10 2D array
         self.action_space = spaces.MultiDiscrete([10, 10])
+        # 3 stands for the amount of possible values at each board position
         self.observation_space = spaces.MultiDiscrete([
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
             [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -30,7 +31,7 @@ class CustomEnv(gym.Env):
         self.empty_field = "1"
         self.ship = "2"
 
-        # a shiplis for every player/agent
+        # a shiplist for every player/agent
         self.shiplist_enemy = []
         self.shiplist_agent = []
 
@@ -52,7 +53,7 @@ class CustomEnv(gym.Env):
         A ship is placed based on the shipsize.
         Every ship is counted and added to a list
         """
-        # define how many shiptypes should be placed
+        # define how many ships of each type should be placed
         small_ship = 4
         middle_ship = 2 +small_ship
         big_ship = 2 + middle_ship
@@ -82,8 +83,8 @@ class CustomEnv(gym.Env):
 
     def ship_creation(self, size, player, shiplist):
         """
-        Before a ship can be placed the Agent or Computer choose some random positon values.
-        A Object by Class: Warships is generated and added to the list.
+        Before a ship can be placed the Agent or Computer choose random position values.
+        An Object of the Class: Warships is generated and added to the list.
         :param size: the size of the ship
         :param shiplist: the list that contains the ship-object
         """
@@ -99,7 +100,7 @@ class CustomEnv(gym.Env):
         else:
             ship = self.board.place_ship(player, r_pos_start, r_pos_end, r_orientation, r_row, size)
 
-        # if the object could not be generated (e.g. position not free) -> dont add it to the list
+        # if the object could not be generated (e.g. position not free) -> don't add it to the list
         if ship is not None:
             # choose the shiplist based on player value
             if player is 0:
@@ -123,11 +124,11 @@ class CustomEnv(gym.Env):
     def check_hit(self, player, x, y):
 
         """
-        Detects if a ship is hit by a shot.
+        Detects if a ship was hit by a shot.
         :param player: Computer or Agent
         :param x: X shot position
         :param y: Y shot position
-        :return: True if a ship is hit
+        :return: True if a ship was hit
         """
 
         # Agent/Player move
@@ -240,7 +241,7 @@ class CustomEnv(gym.Env):
         # Agent move
         shot = self.computer_move()
 
-        # first check if the position is not alreasy shot and try to place the shot on the Battlefield
+        # first check if the position is not already shot then try to place the shot on the battlefield
         free_agent_field = self.board.place_hit(shot[0], shot[1], self.board.agent_board)
         free_enemy_field = self.board.place_hit(action[0], action[1], self.board.enemy_board)
         self.board.draw_board()
@@ -260,13 +261,13 @@ class CustomEnv(gym.Env):
         """
         Applies the action and changes the board accordingly.
         If the start value is True, then the ships will be placed.
-        After the ships are placed every Player alternately shoot.
+        After the ships are placed every Player alternately shoots.
         The shot coordinates are checked and if the position is free,
-        then the shot is placed on the battlefield.
-        If a ship is hit by a shot, then the reward ist +1.
-        When a player has lost all of his ships, then a winner is determined.
+        the shot is placed on the battlefield.
+        If a ship is hit by a shot, then the reward is increased by 1.
+        When a player has lost all of his ships, a winner is determined.
         A list contains all the shot coordinates made by the agent.
-        If the agent won the game then the reward is +10
+        If the agent wins a match the reward is increased by 10.
         action:
             a board position to set the shot ("o") (e.g. [x, y])
         return:

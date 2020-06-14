@@ -8,9 +8,9 @@ class Battlefield:
 
     """
     Class Board generates two (2-Dimensional) Arrays.
-    Every Array is a Battlefield for the game.
-    The Field at the bottom is the player/agent field
-    The field at the toop is the Computer/Enemy field
+    Every Array represents one player'S Battlefield for the game.
+    The Field at the bottom is the player/agent field.
+    The field at the top is the Computer/Enemy field.
     """
 
     def __init__(self, board_size):
@@ -20,16 +20,16 @@ class Battlefield:
 
     def reset_board(self, board_size):
         """
-        creates two array with empty strings inside.
-        Start position for the game.
-        :param board_size: defines which size the the battlefield should have
+        Fills the boards with 1s.
+        Initial state of the game.
+        :param board_size: defines the battlefield size
         """
         for x in range(board_size):
             self.enemy_board.append([1] * board_size)
             self.agent_board.append([1] * board_size)
         self.draw_board()
 
-    def choose_random_color(self):
+    '''def choose_random_color(self):
         """
         Creates a list with colors and gives a random color back.
         Is used to give every ship a different color.
@@ -64,10 +64,11 @@ class Battlefield:
         color_list.append(lightcyan)
 
         return str(random.choice(color_list))
+    '''
 
     def draw_board(self):
         """
-        The two arrays for eacht battlefield is printed inside the console.
+        The two arrays for each battlefield are printed inside the console.
         """
 
         # Clear Screen with empty lines
@@ -76,21 +77,21 @@ class Battlefield:
         for row in self.enemy_board:
             print(row)
         print('\n')
-        print("--- Spieler/Agent Battlefield ---")
+        print("--- Player/Agent Battlefield ---")
         for row in self.agent_board:
             print(row)
 
     def place_ship(self, choose_board, r_pos_start, r_pos_end, r_orientation, r_row, size):
 
         """
-        A single ship is created on placed on the battlefield.
+        A single ship is created and placed on the battlefield.
         Is used for both players to create ships.
-        :param choose_board: the board that contains the ship
+        :param choose_board: the board that you want to place the ship in
         :param r_pos_start: start position for the ship
         :param r_pos_end: end position for the ship
-        :param r_orientation: vertically or horizontal
+        :param r_orientation: vertically or horizontally
         :param r_row: row or column
-        :param size: lenth of the shop
+        :param size: length of the ship
         :return: a single ship object
         """
         start = r_pos_start
@@ -113,13 +114,13 @@ class Battlefield:
                 if self.empty_space(column, row, board):
                     position_free = True
                 else:
-                    # stop the for loop if any position is filled with "0"
+                    # stop the for loop if any of the positions is filled with the ship symbol
                     position_free = False
                     break
             # if position is free then place the ship symbol
             if position_free:
                 for row in range(start, end + 1):
-                    # draw the ship symbol with a random color and the symbol
+                    # draw the ship symbol (in a random color)
                     board[column][row] = Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
@@ -132,13 +133,13 @@ class Battlefield:
                 if self.empty_space(row, column, board):
                     position_free = True
                 else:
-                    # stop the for loop if any position is filled with "0"
+                    # stop the for loop if any position is filled with the ship symbol
                     position_free = False
                     break
             # if position is free then place the ship symbol
             if position_free:
                 for row in range(start, end + 1):
-                    # draw the ship symbol with a random color and the symbol
+                    # draw the ship symbol (in a random color)
                     board[row][column] = Warships.check_size(size)
                 # return the ship object with all necessary information
                 return Warships(start, end, orientation, column, size)
@@ -146,7 +147,7 @@ class Battlefield:
     def empty_space(self, row, column, selected_board):
         """
         check if the position for the ship is empty
-        :param selected_board: the agent or computer board
+        :param selected_board: the agent's or computer's board
         """
         if selected_board[row][column] == 1:
             return True
@@ -155,7 +156,7 @@ class Battlefield:
 
     def move_ship(self, start, end):
         """
-        If the end is not inside the battlefield, then move it to the middle
+        If the end point is not inside the battlefield, then move it towards the middle
         :param start: ship start point
         :param end: ship end point
         :return: new position
@@ -169,7 +170,7 @@ class Battlefield:
 
     def hit(self, x, y, selected_board):
         """
-        This method checks if the coordinates have already been shot
+        This method checks if the given coordinates have already been shot at
         :return: True if board is marked with a shot
         """
         shot_symbol = 0
@@ -180,7 +181,7 @@ class Battlefield:
 
     def place_hit(self, x, y, selected_board):
         """
-        This method is to place the hit on the board
+        This method places a the hit marker on the board
         """
         shot_symbol = 0
         if not self.hit(x, y, selected_board):
