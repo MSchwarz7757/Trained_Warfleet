@@ -41,9 +41,9 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 
 <img align="left" src="images/placement.PNG"> Here you can see the console output of the agents board after all ships have been placed and the firing of multiple shots from both sides. Once again: <br />
-0 = shot <br />
-1 = water <br />
-2 = ship <br />
+*0 = shot* <br />
+*1 = water* <br />
+*2 = ship* <br />
 
 
 
