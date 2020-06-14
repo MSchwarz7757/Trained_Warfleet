@@ -30,7 +30,7 @@ The observation space describes the amount of possible values, 3 in this case, f
 
 ## Usage Instructions:
 Since this project is based on *OpenAi Gym* it requires a python environment with the toolkit installed to function correctly.
-You can either set this up beforhand or simply add *gym* to your environment after cloning or downloading this repository.
+You can either set this up beforehand or simply add *gym* to your environment after cloning or downloading this repository.
 All you have to do to test our project after that is *run* the *main.py* file.
 
 <br />
