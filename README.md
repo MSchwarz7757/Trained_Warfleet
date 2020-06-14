@@ -37,7 +37,14 @@ All you have to do after that to test our project is *run* the *main.py* file.
 
 <img align="right" src="images/ep_steps.PNG"> To view mid game board states easier you could also adjust the maximum step size in *init.py* in the *gym_wf* folder.
 
-<img align="left" src="images/placement.PNG"> ...
+<br />
+<br />
+
+<img align="left" src="images/placement.PNG"> Here you can see the console output of the agents board after all ships have been placed and the firing of multiple shots from both sides. Once again: <br />
+1 = water <br />
+2 = ship <br />
+3 = shot <br />
+
 
 <br />
 <br />
@@ -76,7 +83,7 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 <br />
 
-<img align="left" src="images/last_state.PNG"> This image shows the last state which resulted in the agent winning this match. In this case it took 295 episode steps to finish the match and the agent gained a combined reward of 42.
+<img align="left" src="images/last_state.PNG"> This image shows the *last state* which resulted in the agent winning this match. In this case it took *295 episode steps* to finish the match and the agent gained a *combined reward of 42*.
 
 <br />
 <br />
