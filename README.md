@@ -76,7 +76,7 @@ All you have to do after that to test our project is *run* the *main.py* file.
 <br />
 <br />
 
-<img align="left" src="images/last_state.PNG"> This image shows the last state which resulted in the agent winning this match.
+<img align="left" src="images/last_state.PNG"> This image shows the last state which resulted in the agent winning this match. In this case it took 295 episode steps to finish the match and the agent gained a combined reward of 42.
 
 <br />
 <br />
