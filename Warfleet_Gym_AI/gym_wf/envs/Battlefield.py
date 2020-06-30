@@ -13,11 +13,10 @@ class Battlefield:
     The field at the top is the Computer/Enemy field.
     """
 
-    def __init__(self, board_size, draw=False):
+    def __init__(self, board_size):
         self.board_size = board_size
         self.enemy_board = []
         self.agent_board = []
-        self.draw = draw
 
     def reset_board(self, board_size):
         """
@@ -25,12 +24,10 @@ class Battlefield:
         Initial state of the game.
         :param board_size: defines the battlefield size
         """
-        self.agent_board = []
-        self.enemy_board = []
         for x in range(board_size):
             self.enemy_board.append([1] * board_size)
             self.agent_board.append([1] * board_size)
-        #self.draw_board()
+        self.draw_board()
 
     '''def choose_random_color(self):
         """
@@ -70,8 +67,6 @@ class Battlefield:
     '''
 
     def draw_board(self):
-        #if not self.draw:
-        #    return
         """
         The two arrays for each battlefield are printed inside the console.
         """
@@ -201,3 +196,4 @@ class Battlefield:
     # getter
     def get_agent_board(self):
         return self.agent_board
+

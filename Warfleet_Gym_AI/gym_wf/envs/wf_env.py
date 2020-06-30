@@ -8,7 +8,7 @@ from .Warships import Warships
 
 class CustomEnv(gym.Env):
 
-    def __init__(self, verbose=False):
+    def __init__(self):
         # set to 10 to represent all possible coordinates in a 10x10 2D array
         self.action_space = spaces.MultiDiscrete([10, 10])
         # 3 stands for the amount of possible values at each board position
@@ -46,7 +46,6 @@ class CustomEnv(gym.Env):
         # counter for amount of ships
         self.num_ship_agent = 0
         self.num_ship_enemy = 0
-        self.verbose = verbose
 
     def place_ships(self):
 
@@ -119,34 +118,11 @@ class CustomEnv(gym.Env):
         return:
             board as state of the environment
         """
-        # reset all necesarry values
-        self.start = True
-        self.shiplist_enemy = []
-        self.shiplist_agent = []
-        self.num_ship_agent = 0
-        self.num_ship_enemy = 0
-
-        # draw an empty board
         self.board.reset_board(10)
-
-        # print("----------\n", obs, "\n")
-        # obs = np.random.randint(low=0, high=3, size=(10, 10))
-
-        # creates the ships and add them to the battlefield
-        while self.start:
-            # place a specific number for every battlefield
-            if self.num_ship_agent >= 10 and self.num_ship_enemy >= 10:
-                if self.num_ship_agent == len(self.shiplist_agent):
-                    self.start = False
-            self.place_ships()
-            self.board.draw_board()
-
-        obs = self.board.get_enemy_board()
-        obs = np.array(obs, np.int32)
-
-        return obs
+        return self.board
 
     def check_hit(self, player, x, y):
+
         """
         Detects if a ship was hit by a shot.
         :param player: Computer or Agent
@@ -178,8 +154,7 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_enemy.remove(ship)
-                            if self.verbose:
-                                print("Schiff zerstört")
+                            print("Schiff zerstört")
                         return True
 
         # Computer/Enemy move
@@ -214,13 +189,11 @@ class CustomEnv(gym.Env):
             boolean value and the player who has won the match
         """
         if not self.shiplist_enemy:
-            #if self.verbose:
             print("---------------- End -------------------")
             print("The Agent has won the game")
             done = True
             return done, 1
         elif not self.shiplist_agent:
-            #if self.verbose:
             print("---------------- End -------------------")
             print("The Computer has won the game")
             done = True
@@ -301,27 +274,27 @@ class CustomEnv(gym.Env):
             state (board), reward, done, info
         """
 
-
+        # creates the ships and add them to the battlefield
+        while self.start:
+            # place a specific number for every battlefield
+            if self.num_ship_agent >= 10 and self.num_ship_enemy >= 10:
+                if self.num_ship_agent == len(self.shiplist_agent):
+                    self.start = False
+            self.place_ships()
+            self.board.draw_board()
         reward = 0
         done = False
         reward += self.apply_action(action, reward)
 
         # check winner by shiplist
         done, player = self.check_winner()
-
-        obs = self.board.get_enemy_board()
-        obs = np.array(obs, np.int32)
-        # obs = np.random.randint(low=0, high=3, size=(10, 10))
-
-        #print("---------------obs:", obs.shape, obs)
-
         if player == 1:
             # if agent is the winner
             reward += 10
-            return obs, reward, done, {}
+            return self.board.get_enemy_board(), reward, done, {}
 
-        return obs, reward, done, {}
+        return self.board.get_enemy_board(), reward, done, {}
 
     # board wird gezeichnet
     def render(self, mode="human", close=False):
-        print(self.board.draw_board())
+        print(self.board.reset_board(10))
