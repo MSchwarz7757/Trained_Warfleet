@@ -8,7 +8,7 @@ from .Warships import Warships
 
 class CustomEnv(gym.Env):
 
-    def __init__(self):
+    def __init__(self, verbose=False):
         # set to 10 to represent all possible coordinates in a 10x10 2D array
         self.action_space = spaces.MultiDiscrete([10, 10])
         # 3 stands for the amount of possible values at each board position
@@ -46,6 +46,7 @@ class CustomEnv(gym.Env):
         # counter for amount of ships
         self.num_ship_agent = 0
         self.num_ship_enemy = 0
+        self.verbose = verbose
 
     def place_ships(self):
 
@@ -118,11 +119,32 @@ class CustomEnv(gym.Env):
         return:
             board as state of the environment
         """
+        # reset all necesarry values
+        self.start = True
+        self.shiplist_enemy = []
+        self.shiplist_agent = []
+        self.num_ship_agent = 0
+        self.num_ship_enemy = 0
+
+        # draw an empty board
         self.board.reset_board(10)
-        return self.board
+
+        # print("----------\n", obs, "\n")
+        # obs = np.random.randint(low=0, high=3, size=(10, 10))
+
+        # creates the ships and add them to the battlefield
+        while self.start:
+            # place a specific number for every battlefield
+            if self.num_ship_agent >= 10 and self.num_ship_enemy >= 10:
+                if self.num_ship_agent == len(self.shiplist_agent):
+                    self.start = False
+            self.place_ships()
+
+        obs = self.board.get_enemy_board()
+        obs = np.array(obs, np.int64)
+        return obs
 
     def check_hit(self, player, x, y):
-
         """
         Detects if a ship was hit by a shot.
         :param player: Computer or Agent
@@ -143,7 +165,9 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_enemy.remove(ship)
-                        return True
+                            # 10.0 is the reward for a sunken ship
+                            return True, 25.0
+                        return True, 0
 
                 # 1 == vertically
                 elif ship.orientation == 1:
@@ -154,8 +178,9 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_enemy.remove(ship)
-                            print("Schiff zerstört")
-                        return True
+                            # 10.0 is the reward for a sunken ship
+                            return True, 25.0
+                        return True, 0
 
         # Computer/Enemy move
         if player == 1 and self.shiplist_agent:
@@ -169,7 +194,7 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_agent.remove(ship)
-                        return True
+                        return True, 0
 
                 # 1 == vertically
                 elif ship.orientation == 1:
@@ -180,7 +205,8 @@ class CustomEnv(gym.Env):
                         if ship.size is 0:
                             # remove the ship is size is zero
                             self.shiplist_agent.remove(ship)
-                        return True
+                        return True, 0
+        return False, 0
 
     def check_winner(self):
         """
@@ -189,11 +215,13 @@ class CustomEnv(gym.Env):
             boolean value and the player who has won the match
         """
         if not self.shiplist_enemy:
+            #if self.verbose:
             print("---------------- End -------------------")
             print("The Agent has won the game")
             done = True
             return done, 1
         elif not self.shiplist_agent:
+            #if self.verbose:
             print("---------------- End -------------------")
             print("The Computer has won the game")
             done = True
@@ -247,12 +275,23 @@ class CustomEnv(gym.Env):
         self.board.draw_board()
 
         # if position is free then check if a ship is hit
+        hit = False
+        reward_value = 0
         if free_enemy_field:
-            if self.check_hit(0, action[0], action[1]):
+            hit, reward_value = self.check_hit(0, action[0], action[1])
+            if hit:
                 # if agent hit the target
-                reward += 1
+                reward += 10.0
+                # if a ship has sunk add +10 reward
+                reward += reward_value
                 self.count_hit += 1
                 self.hitlist_agent.insert(self.count_hit, [action[0], action[1]])
+            else:
+                # if the agent did not shot a ship
+                reward -= 1.0
+        else:
+            # if the field which is shot is not free
+            reward -= 1.0
         if free_agent_field:
             self.check_hit(1, shot[0], shot[1])
         return reward
@@ -274,27 +313,26 @@ class CustomEnv(gym.Env):
             state (board), reward, done, info
         """
 
-        # creates the ships and add them to the battlefield
-        while self.start:
-            # place a specific number for every battlefield
-            if self.num_ship_agent >= 10 and self.num_ship_enemy >= 10:
-                if self.num_ship_agent == len(self.shiplist_agent):
-                    self.start = False
-            self.place_ships()
-            self.board.draw_board()
+
         reward = 0
         done = False
         reward += self.apply_action(action, reward)
 
         # check winner by shiplist
         done, player = self.check_winner()
-        if player == 1:
-            # if agent is the winner
-            reward += 10
-            return self.board.get_enemy_board(), reward, done, {}
 
-        return self.board.get_enemy_board(), reward, done, {}
+        obs = self.board.get_enemy_board()
+        obs = np.array(obs, np.int64)
+        #obs = np.random.randint(low=0, high=3, size=(10, 10))
+        #print("---------------obs:", obs)
+
+        #if player == 1:
+            # if agent is the winner
+            #return obs, reward, done, {}
+
+        #self.board.draw_board()
+        return obs, reward, done, {}
 
     # board wird gezeichnet
     def render(self, mode="human", close=False):
-        print(self.board.reset_board(10))
+        print(self.board.draw_board())
