@@ -21,6 +21,8 @@ The action space in our environment consists of all possible coordinates in said
 
 The observation space describes the amount of possible values, 3 in this case, for every board position.
 
+
+<img align="left" src="images/a2c.PNG">
 <br />
 <br />
 <br />
