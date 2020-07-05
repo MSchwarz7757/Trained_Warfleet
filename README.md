@@ -89,8 +89,22 @@ All you have to do to test our project after that is *run* the *main.py* file.
 <br />
 <br />
 <br />
-<img align="left" src="images/a2c.PNG">
+<img align="right" src="images/a2c.PNG">
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <br />
 <br />
 <br />
