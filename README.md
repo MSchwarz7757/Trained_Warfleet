@@ -10,7 +10,7 @@ The *environment* is ready to be used to train *agents*.
 The rules of the game and the process of playing have been implemented. 
 Currently a basic *agent*, which takes random actions, is set up to play against a simple *AI*, which in turn also takes random actions. 
 The agent gains a *small reward* for every hit and a *greater reward* for winning a match. 
-The Baselines framework enabled us the train models using the PPO" and A2C algorithems.
+The [OpenAI Baselines](https://github.com/openai/baselines) framework enabled us the train models using the PPO2 and A2C algorithems.
 
 <br />
 <br />
@@ -119,5 +119,5 @@ All you have to do to test our project after that is *run* the *main.py* file.
 <br />
 
 ## Future Outlook:
-Next up is the incorporation of reinforcement learning algorithems using the [OpenAI Baselines](https://github.com/openai/baselines) framework leading into the training of multiple agents with a selection of the aforementioned algorithems.
+...
 
