@@ -30,6 +30,8 @@ The observation space describes the amount of possible values, 3 in this case, f
 <br />
 <br />
 <br />
+<br />
+<br />
 
 ## Usage Instructions:
 Since this project is based on *OpenAi Gym* it requires a python environment with the toolkit installed to function correctly.
