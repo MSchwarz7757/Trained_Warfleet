@@ -6,10 +6,11 @@ For this purpose we chose the [OpenAI Gym](https://gym.openai.com/) toolkit, whi
 tasks.
 
 ## Current State:
-As of today, the 14th of June 2020, the *environment* should be ready to be used to train *agents*.
+The *environment* is ready to be used to train *agents*. 
 The rules of the game and the process of playing have been implemented. 
 Currently a basic *agent*, which takes random actions, is set up to play against a simple *AI*, which in turn also takes random actions. 
-The agent gains a *small reward* for every hit and a *greater reward* for winning a match.
+The agent gains a *small reward* for every hit and a *greater reward* for winning a match. 
+The Baselines framework enabled us the train models using the PPO" and A2C algorithems.
 
 <br />
 <br />
