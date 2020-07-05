@@ -22,7 +22,6 @@ The action space in our environment consists of all possible coordinates in said
 The observation space describes the amount of possible values, 3 in this case, for every board position.
 
 
-<img align="left" src="images/a2c.PNG">
 <br />
 <br />
 <br />
@@ -82,6 +81,15 @@ All you have to do to test our project after that is *run* the *main.py* file.
 <br />
 
 <img align="left" src="images/last_state.PNG"> This image shows the *last state* which resulted in the agent winning this match. In this case it took *295 episode steps* to finish the match and the agent gained a *combined reward of 42*.
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<img align="left" src="images/a2c.PNG">
 
 <br />
 <br />
