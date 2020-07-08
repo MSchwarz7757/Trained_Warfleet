@@ -1,10 +1,12 @@
-from stable_baselines.common.vec_env import DummyVecEnv
-from stable_baselines import PPO2
-from stable_baselines.common.policies import MlpPolicy
-import numpy as np
-from mlp import Policy
 import gym
 import gym_wf
+from stable_baselines.common.policies import MlpPolicy
+from stable_baselines.common.vec_env import DummyVecEnv
+# from stable_baselines import TRPO
+from stable_baselines import PPO2, A2C
+
+from mlp import Policy
+
 
 def main():
     # env = gym.make("CartPole-v1")
@@ -12,35 +14,36 @@ def main():
     # The algorithms require a vectorized environment to run
     env = DummyVecEnv([lambda: env])
     log_dir = "./logs/"
-    model = PPO2(MlpPolicy, env, verbose=1, tensorboard_log=log_dir, cliprange=0.02, n_steps=500, nminibatches=4)
+    # model = PPO2(Policy, env, verbose=1, tensorboard_log=log_dir, cliprange=0.05)
+    model = A2C(MlpPolicy, env, verbose=1, tensorboard_log=log_dir)
+    print(model.episode_reward)
 
-    time_steps = int(input("How many timesteps to train the agent: "))
-    model.learn(total_timesteps=time_steps)
-
-    # just to seperate lerning phase and game phase
-    num_episodes = int(input("How many games should the agent play: "))
-    #model.save("warfleet")
+    # model.learn(total_timesteps=10000000)
+    # model.save("a2c_wf_3")
+    print("model.episode_reward: {}".format(model.episode_reward))
+    print("model.rewards_ph: {}".format(model.rewards_ph))
 
     done = False
-    #model = PPO2.load("warfleet")
-    all_episode_rewards = []
+    stage_reward = 0
+    input("Training is finished, press to play a game")
 
-    for i in range(num_episodes):
-        print("--- New Game has started ---")
-        obs = env.reset()
-        episode_rewards = []
-        done = False
-        while not done:
-            print("--- Game is running ---")
-            action, _states = model.predict(obs)
-            obs, reward, done, info = env.step(action)
-            episode_rewards.append(reward)
-            env.render()
-        env.close()
-        all_episode_rewards.append(sum(episode_rewards))
+    model = A2C.load("a2c_wf_2", env=env, tensorboard_log=log_dir)
 
-    mean_episode_reward = np.mean(all_episode_rewards)
-    print("Mean reward:", mean_episode_reward, "Num episodes:", num_episodes)
+    obs = env.reset()
+
+    while not done:
+        print("Game is running")
+        action, _states = model.predict(obs)
+        print("---------------action:", action.shape, action)
+        obs, reward, done, info = env.step(action)
+        stage_reward += reward
+        print("Reward in ever round: {}".format(reward))
+        # env.render()
+        # print("Trefferliste: {}".format(env.hitlist_agent))
+
+    print("Reward: {} von insgesamt 32 notwendigen schüssen".format(stage_reward))
+    env.close()
+
 
 if __name__ == "__main__":
     main()
