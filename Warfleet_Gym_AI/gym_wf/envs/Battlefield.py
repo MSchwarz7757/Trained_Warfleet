@@ -198,6 +198,7 @@ class Battlefield:
     # getter
     def get_enemy_board(self):
         return self.enemy_board
+
     # getter
     def get_agent_board(self):
         return self.agent_board

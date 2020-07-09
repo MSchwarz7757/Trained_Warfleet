@@ -139,7 +139,7 @@ class CustomEnv(gym.Env):
                 if self.num_ship_agent == len(self.shiplist_agent):
                     self.start = False
             self.place_ships()
-            self.board.draw_board()
+            #self.board.draw_board()
 
         obs = self.board.get_enemy_board()
         obs = np.array(obs, np.int32)
