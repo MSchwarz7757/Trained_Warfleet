@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="488af29a-529b-419d-8c9c-f9a662873b9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gym_wf/envs/Battlefield.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym_wf/envs/Battlefield.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gym_wf/envs/wf_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/gym_wf/envs/wf_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_agent_A2C.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_agent_A2C.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_agent_PPO2.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_agent_PPO2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +24,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Michel\GitProjects\Trained-Warfleet\Warfleet_Gym_AI\trained_agents" />
+      <recent name="C:\Users\Michel\GitProjects\Trained-Warfleet\Warfleet_Gym_AI" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -38,7 +42,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.train_agent">
+  <component name="RunManager" selected="Python.train_agent_A2C">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Gym_Exercise" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,8 +87,54 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train_agent_A2C" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Gym_Exercise" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_agent_A2C.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_agent_PPO2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Gym_Exercise" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_agent_PPO2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.train_agent_A2C" />
+        <item itemvalue="Python.train_agent_PPO2" />
         <item itemvalue="Python.train_agent" />
         <item itemvalue="Python.main" />
       </list>
@@ -115,6 +165,7 @@
       <workItem from="1593506752294" duration="653000" />
       <workItem from="1594237850677" duration="3357000" />
       <workItem from="1594303123329" duration="2522000" />
+      <workItem from="1594455809017" duration="619000" />
     </task>
     <servers />
   </component>
@@ -136,6 +187,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Warfleet_Gym_AI$train_agent.coverage" NAME="train_agent Coverage Results" MODIFIED="1594306885315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Warfleet_Gym_AI$train_agent_A2C.coverage" NAME="train_agent_A2C Coverage Results" MODIFIED="1594456373266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Warfleet_Gym_AI$train_agent_PPO2.coverage" NAME="train_agent_PPO2 Coverage Results" MODIFIED="1594456362475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Warfleet_Gym_AI$main.coverage" NAME="main Coverage Results" MODIFIED="1593162921219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Gym_Exercise$main.coverage" NAME="main Coverage Results" MODIFIED="1591115429587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

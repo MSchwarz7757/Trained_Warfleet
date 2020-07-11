@@ -22,7 +22,7 @@ def main():
     stage_reward = 0
     input("Training is finished, press to play a game: ")
 
-    model = PPO2.load("PPO2_wf_2", env=env, tensorboard_log=log_dir)
+    model = PPO2.load("trained_agents/PPO2_wf_2", env=env, tensorboard_log=log_dir)
 
     obs = env.reset()
 
