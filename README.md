@@ -63,7 +63,6 @@ The console prompt will ask for the algorithm and the timessteps. <img align="ri
 <br />
 <br />
 <br />
-
 <img align="left" src="images/match_end.PNG"> To the left we have a representation of the agent's opponent's board and below that the respective representation of the agent's board in a certain game state. As you can see the agent won by destorying all of its opponent's ships while 2 of its ships still remain partially intact. 
 
 <br />
@@ -100,6 +99,10 @@ The console prompt will ask for the algorithm and the timessteps. <img align="ri
 <br />
 <br />
 <br />
+**End of the game**
+At the end of the game you can see that the agent has won the game and shot every ship.
+The Enemy shot the agent ships by random choice. So the shots have no structure or strategy.
+The Agent shot every ship by its length. If a ship is hit, the next ship possition is just one field beside.
 <img align="right" src="./images/a2c.PNG">
 
 <br />
