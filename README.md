@@ -128,7 +128,9 @@ The Agent shot every ship by its length. If a ship is hit, the next ship possiti
 <br />
 <br />
 <br />
+
 ## Tensorboard diagrams:
+
 <br />
 <br />
 <img align="left" width="1000" src="images/Tensor_Images/discount_reward_big.JPG">
