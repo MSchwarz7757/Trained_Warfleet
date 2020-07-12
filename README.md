@@ -41,11 +41,11 @@ All you have to do is to run one of these files:<br />
 To train the agents you can run **trainAgents.py**.<br />
 To test the agents you can run **testAgents.py**.<br />
 <br />
-The models are in folder: Warfleet_Gym_AI/trained_agents
+The models are in folder: **Warfleet_Gym_AI/trained_agents**
 
 <br />
 
-The console prompt will ask for the algorithm and the timessteps. <img align="right" width="400px" src="images/console_promt.JPG"> 
+The console prompt will ask for the algorithm and the timessteps. <img align="center" width="600px" src="images/console_promt.JPG"> 
 
 <br />
 <br />
