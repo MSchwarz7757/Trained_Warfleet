@@ -125,6 +125,11 @@ The console prompt will ask for the algorithm and the timessteps. <img align="ri
 <br />
 <br />
 <br />
+## Tensorboard diagrams:
+<img align="left" width="450" src="images/episode_reward.JPG">
+<img align="center" width="600" src="images/advantage_discountReward.JPG">
+<img align="center" width="600" src="images/loss.JPG">
+
 
 ## Future Outlook:
 ...
