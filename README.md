@@ -41,11 +41,11 @@ All you have to do is to run one of these files:<br />
 To train the agents you can run the **trainAgents.py**<br />
 To test the agents you can run the **testAgents.py**<br />
 <br />
-The console prompt will ask for the algorithm and the timessteps.
+
 
 <br />
 
-<img align="right" src="images/ep_steps.PNG"> To view mid game board states easier you can also adjust the *maximum step size* in *init.py* in the *gym_wf* folder.
+The console prompt will ask for the algorithm and the timessteps. <img align="right" src="images/console_promt.JPG"> 
 
 <br />
 <br />
