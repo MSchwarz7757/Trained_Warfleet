@@ -100,7 +100,7 @@ The console prompt will ask for the algorithm and the timessteps. <img align="ri
 <br />
 <br />
 <br />
-<img align="right" src="images/a2c.PNG">
+<img align="right" src="./images/a2c.PNG">
 
 <br />
 <br />
