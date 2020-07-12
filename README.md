@@ -99,7 +99,7 @@ The console prompt will ask for the algorithm and the timessteps. <img align="ri
 <br />
 <br />
 <br />
-**End of the game**
+<h2>End of the game</h2>
 At the end of the game you can see that the agent has won the game and shot every ship.
 The Enemy shot the agent ships by random choice. So the shots have no structure or strategy.
 The Agent shot every ship by its length. If a ship is hit, the next ship possition is just one field beside.
