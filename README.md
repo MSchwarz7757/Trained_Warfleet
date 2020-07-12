@@ -130,7 +130,10 @@ The Agent shot every ship by its length. If a ship is hit, the next ship possiti
 <br />
 
 ## Tensorboard diagrams:
-
+Orange = A2C
+Blue = PPO2
+<br />
+<br />
 <h3>Discount Reward</h3>
 <img align="left" width="1000" src="images/Tensor_Images/discount_reward_big.JPG">
 <br />
