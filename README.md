@@ -45,7 +45,7 @@ The models are in folder: **Warfleet_Gym_AI/trained_agents**
 
 <br />
 
-The console prompt will ask for the algorithm and the timessteps. <img align="left" width="600px" src="images/console_promt.JPG"> 
+The console prompt will ask for the algorithm and the timessteps. <img align="center" width="600px" src="images/console_promt.JPG"> 
 
 <br />
 <br />
