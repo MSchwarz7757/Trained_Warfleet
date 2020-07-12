@@ -45,7 +45,7 @@ To test the agents you can run the **testAgents.py**<br />
 
 <br />
 
-The console prompt will ask for the algorithm and the timessteps. <img align="right" width="100px" src="images/console_promt.JPG"> 
+The console prompt will ask for the algorithm and the timessteps. <img align="right" width="350px" src="images/console_promt.JPG"> 
 
 <br />
 <br />
