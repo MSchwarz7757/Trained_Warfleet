@@ -38,10 +38,10 @@ Since this project is based on *OpenAi Gym* it requires a python environment wit
 You can either set this up beforehand or simply add *gym* to your environment after cloning or downloading this repository.
 All you have to do is to run one of these files:<br />
 <br />
-To train the agents you can run **trainAgents.py**.<br />
-To test the agents you can run **testAgents.py**.<br />
+To train agents you can run **trainAgents.py**.<br />
+To test agents you can run **testAgents.py**.<br />
 <br />
-The models are in folder: **Warfleet_Gym_AI/trained_agents**
+The models are located in the folder: **Warfleet_Gym_AI/trained_agents**
 
 <br />
 
