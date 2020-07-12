@@ -142,7 +142,7 @@ Blue: PPO2
 <img align="left" width="1000" src="images/Tensor_Images/discount_reward_big.JPG">
 <br />
 <br />
-<h3>Advantage, Clip Range, Discount Reward</h3>
+<h3>Advantage, Clip Range, Discounted Reward</h3>
 <img align="center" width="1000" src="images/Tensor_Images/advantage_discountReward.JPG">
 <h3>Loss</h3>
 <img align="center" width="1000" src="images/Tensor_Images/los_big.JPG">
