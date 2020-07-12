@@ -150,5 +150,5 @@ Blue: PPO2
 
 
 ## Future Outlook:
-...
+Uncertain - No further development planned currently.
 
