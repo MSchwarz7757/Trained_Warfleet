@@ -135,23 +135,21 @@ Red: A2C
 Blue: PPO2
 <br />
 <br />
-<h3>Discount Reward</h3>
+<h3>Reward</h3>
 <img align="left" width="1000" src="images/Tensor_Images/discount_reward_big.JPG">
 <br />
 <br />
-<br />
-<br />
-
-<br />
-<br />
-<br />
-<br />
+<img align="left" width="1000" src="images/Tensor_Images/episode_reward_big.JPG">
 <br />
 <br />
 <h3>Advantage, Clip Range, Discount Reward</h3>
 <img align="center" width="1000" src="images/Tensor_Images/advantage_discountReward.JPG">
+<br />
+<br />
 <h3>Loss</h3>
 <img align="center" width="1000" src="images/Tensor_Images/los_big.JPG">
+<br />
+<br />
 <img align="center" width="1000" src="images/Tensor_Images/loss.JPG">
 
 
