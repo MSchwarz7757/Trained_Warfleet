@@ -1,6 +1,12 @@
 
 \documentclass[sigconf]{acmart}
 
+\usepackage{wrapfig}
+
+\usepackage[english]{babel}
+
+\usepackage{biblatex}
+
 \setcopyright{none}
 
 \settopmatter{printacmref=false} % Removes citation information below abstract
@@ -19,8 +25,8 @@
 \affiliation{\institution{Hochschule Düsseldorf}}
 \email{niklas.tluk@study.hs-duesseldorf.de}
 
-\begin{abstract}
- Summary of all aspects
+\begin{abstract} % https://libguides.rhul.ac.uk/referencing/latex
+The game War Fleet is a timeless classic, popular to this day in its countless iterations, ranging from the original board game to traditionel video games and more recently VR applications. This is an implementation of said game in Python using neural networks and reinforcment learning. The A2C and PPO2 RL algorithems were employed to train intelligent agents, based on the OpenAI Gym toolkit and the OpenAI Baselines framework, to competently play it.
 \end{abstract}
   
 \begin{CCSXML}
@@ -61,7 +67,7 @@
 %% information and the body of the document, and typically spans the
 %% page.
 \begin{teaserfigure}
- \includegraphics[width=\textwidth]{episode_reward_big}
+ \includegraphics[width=\textwidth]{episode_reward_big} %placeholder
   \caption{Episode Rewards A2C(Orange) and PPO2(Blue).}
   \Description{Enjoying the baseball game from the third-base
   seats. Ichiro Suzuki preparing to bat.}
@@ -78,21 +84,34 @@
  ...
 
 \section{Motivation}
- ...
+ ...Inspiration: mention OpenAI etc
 
 \section{Goal}
- Our goal is the implementation and training of an agent, capable of competently playing the board game warfleet, in python using reinforcement learning.
+ Our goal was the training of multiple intelligent agents, capable of competently playing the board game warfleet, in python using reinforcement learning based on the implementation of different reinforcment learning models.
  ...
 
 \section{Environment}
 To achieve this we also had to develop a feasible environment for the agent to be trained in. For this purpose we chose the OpenAI Gym toolkit, which provides an easy-to-use suite of reinforcement learning tasks.
- ...
+The playing field or board of our game is a 10 by 10 2D array of the type integer. Possible values here are 1 for water, 2 for sections of a ship and 3 for shot positions(impacts).
+
+\vspace{5mm} %5mm vertical space
+
+\begin{wrapfigure}{r}{}
+ \includegraphics[width=40mm]{spaces.png}
+  \caption{Game Board, Observation and Action Space.}
+  \Description{...}
+  \label{fig:spaces}
+\end{wrapfigure}
+
+The action space in our environment consists of all possible coordinates in said board while the observation space describes the amount of possible values, 3 in this case, for every board position.
+
+\vfill %fills remaining section space with blank lines
 
 \section{Methods}
  agents, training, tests
 
 \section{Implementation}
- ...
+ libs, toolboxes, algs etc.
  
  \section{Results}
  ...
@@ -101,7 +120,8 @@ To achieve this we also had to develop a feasible environment for the agent to b
   ...
   
   \section{Future Work}
-Currently there are no plans for further development, with leaves the future of  this project as uncertain.
+Currently there are no plans for further development, with leaves the future of  this project as uncertain. Some possible aproaches are as follows. 
+...AI vs. AI, Human vs. AI
 
 
 \end{document}
