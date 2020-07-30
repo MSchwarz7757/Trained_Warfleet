@@ -114,15 +114,65 @@ The action space in our environment consists of all possible coordinates in said
  libs, toolboxes, algs etc.
  
  \section{Results}
- ...test results, tensorboard analytics
+ The aforementioned training process resulted in the creation of multiple agents based on both aglorithems. Through prolonged training the agents gained proficiency in playing the game, surpassing the random AI and finally reaching a win rate of 100\% with a varying number of its own ships remaining.
+ \\
+ \\
+This is the end state of a War Fleet game played by the ``a2c\_wp\_2 agents'' against a random AI:
+
+\begin{lstlisting}
+--- Computer Battlefield ---
+[0, 1, 0, 1, 0, 0, 0, 0, 0, 0]
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+[0, 0, 0, 1, 0, 1, 1, 0, 0, 1]
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 1]
+[1, 0, 1, 1, 0, 0, 0, 0, 1, 1] 
+[0, 0, 1, 1, 0, 0, 0, 0, 1, 1] 
+[0, 0, 0, 1, 0, 0, 1, 0, 0, 0] 
+[0, 0, 0, 1, 0, 1, 1, 0, 1, 1] 
+[0, 0, 0, 1, 1, 1, 1, 0, 0, 1] 
+[1, 0, 0, 1, 0, 0, 0, 1, 0, 1] 
+\end{lstlisting}
+\\
+\\
+As you can see on the computer's battlefield, all of the its ships have been destroyed by our agent quite accuratly with very little shots missing their mark .
+\\
+
+\begin{lstlisting}
+--- Player/Agent Battlefield ---
+[0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+[2, 2, 2, 0, 2, 0, 0, 1, 0, 1]
+[0, 0, 0, 0, 1, 1, 0, 0, 0, 0] 
+[1, 0, 1, 0, 0, 0, 1, 0, 0, 2]
+[0, 0, 1, 2, 0, 0, 0, 2, 2, 2]
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+[1, 0, 0, 2, 2, 1, 1, 1, 0, 0]
+[0, 0, 0, 0, 2, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+[0, 0, 0, 1, 1, 0, 0, 2, 0, 0]
+\end{lstlisting}
+ \\
+Meanwhile the computer, with its random choices, didn't fare nearly as well. It only managed to sink 2 of our agents's ships, mostly just firing at the open water.
+\\
+\begin{lstlisting}
+------------- End -------------
+The Agent has won the game
+Remaining Ships Computer: 0
+Remaining Ships Agent: 8
+Reward: [42.] /42
+Turns: 121
+\end{lstlisting}
+\\
+With 8 remeaning vessels our agent has bested its opponent in 121 turns, gaining a full reward of 42 points.
+\\
+tensorboard analytics 
+...
  
  \section{Conclusion}
    From those results we can conclude...
   ...a2c > ppo2
   
-  \section{Future Work}
+ \section{Future Work}
 Currently there are no plans for further development, with leaves the future of  this project as uncertain. Some possible aproaches are as follows. 
-...AI vs. AI, Human vs. AI
-
+Differnt types of agents wiith varying amounts of training could be put up against each other to display the dieffernences in learning efficency etc. An option for users to face of against there trained agents could also be implemented.
 
 \end{document}
