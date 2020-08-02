@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99d (MiKTeX 2.9.7420 64-bit)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Trained_AI_Warfleet.aux
+The style file: ieeetran.bst
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Database file #1: bibtex_wf.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+You've used 3 entries,
+            4087 wiz_defined-function locations,
+            840 strings with 7845 characters,
+and the built_in function-call counts, 1354 in all, are:
+= -- 81
+> -- 32
+< -- 3
++ -- 14
+- -- 7
+* -- 67
+:= -- 232
+add.period$ -- 6
+call.type$ -- 3
+change.case$ -- 2
+chr.to.int$ -- 9
+cite$ -- 3
+duplicate$ -- 108
+empty$ -- 142
+format.name$ -- 8
+if$ -- 296
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 19
+newline$ -- 32
+num.names$ -- 3
+pop$ -- 60
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 96
+stack$ -- 0
+substring$ -- 9
+swap$ -- 56
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 3
+warning$ -- 0
+while$ -- 4
+width$ -- 4
+write$ -- 44
